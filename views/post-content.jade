@@ -1,0 +1,41 @@
+- var general = helpers.general
+
+mixin postText(text)
+    div !{text}
+
+mixin postQuote(quote)
+    span.block-quotation !{quote}
+
+mixin postImageWithCaption(groupDoc)
+    - var imageUrl = groupDoc[0].getImage('illustration').getView("main").url
+    p.block-img
+        img(src=imageUrl)
+    - var caption = groupDoc[0].get('caption')
+    p
+        span.image-label !{caption.asText()}
+
+mixin postContent(post)
+    - var postImageUrl = general.postImageUrl(post)
+    - var illustrationUrl = postImageUrl ? postImageUrl : ''
+    div.blog-header.single(style='background-image: url(' + illustrationUrl + ');')
+        div.wrapper
+            h1 !{general.postTile(post)}
+            p.description
+                <?php single_post_shortlede(); ?>
+            p.meta
+                !{general.getDate(post)},
+                span.author !{general.getAuthor(post)}
+
+    div.blog-main.single.container
+        - var slices = post.getSliceZone("post.body").value
+        for slice in slices
+            - var sliceType = slice.sliceType
+            if sliceType != undefined
+                //- Find the right mixin for a slice type and label.
+                case sliceType
+                    when 'text'
+                        +postText(slice.value.getFirstParagraph().text)
+                    when 'quote'
+                        +postQuote(slice.value.getFirstParagraph().text)
+                    when 'image-with-caption'
+                        +postImageWithCaption(slice.value.toArray())

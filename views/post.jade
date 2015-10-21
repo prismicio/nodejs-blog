@@ -1,0 +1,12 @@
+include post-content
+
+head
+    //title !{doc.getText("page.title")}
+    link(rel="stylesheet", href="/stylesheets/reset.css")
+    link(rel="stylesheet", href="/stylesheets/common.css")
+    link(rel="stylesheet", href="/stylesheets/blog.css")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    script(src="/javascript/vendors/jquery-1.11.2.min.js")
+body
+    div.main
+        +postContent(post)

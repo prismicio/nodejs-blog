@@ -1,0 +1,20 @@
+include post-content-preview
+- var general = helpers.general
+head
+    //title !{doc.getText("bloghome.title")}
+    link(rel="stylesheet", href="/stylesheets/reset.css")
+    link(rel="stylesheet", href="/stylesheets/common.css")
+    link(rel="stylesheet", href="/stylesheets/blog.css")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    script(src="/javascript/vendors/jquery-1.11.2.min.js")
+body.page
+    div.main
+    - var bloghomeImageUrl = general.blogHomeImageUrl(bloghome)
+    - var illustrationUrl = bloghomeImageUrl ? bloghomeImageUrl : ''
+    div.blog-header.home(style='background-image: url(' + illustrationUrl + ');')
+        div.wrapper
+            h1.blog-title !{general.blogHomeTile(bloghome)}
+            p.lead.blog-description !{general.blogHomeDescription(bloghome)}
+    div.container.blog-main
+        for post in posts
+            +postContentPreview(post)

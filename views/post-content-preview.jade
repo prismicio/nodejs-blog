@@ -1,0 +1,11 @@
+- var general = helpers.general
+
+mixin postContentPreview(post)
+    - var slices = post.getSliceZone("post.body").value
+    div.blog-post
+        h2.blog-post-title
+            a(href=ctx.linkResolver(post))
+                !{post.getText('post.title')}
+            p.blog-post-meta !{general.getDate(post)}
+        //- display first valid slice text.
+        !{general.firstStructuredTextsFromSlices(slices).getFirstParagraph().text}
