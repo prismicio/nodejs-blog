@@ -21,9 +21,9 @@ mixin postContent(post)
         div.wrapper
             h1 !{general.postTile(post)}
             p.description
-                <?php single_post_shortlede(); ?>
+                !{general.postDescription(post)}
             p.meta
-                !{general.getDate(post)},
+                !{general.getDate(post).asText()},
                 span.author !{general.getAuthor(post)}
 
     div.blog-main.single.container
@@ -34,7 +34,7 @@ mixin postContent(post)
                 //- Find the right mixin for a slice type and label.
                 case sliceType
                     when 'text'
-                        +postText(slice.value.getFirstParagraph().text)
+                        +postText(slice.value.asHtml())
                     when 'quote'
                         +postQuote(slice.value.getFirstParagraph().text)
                     when 'image-with-caption'

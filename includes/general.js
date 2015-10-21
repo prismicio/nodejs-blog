@@ -40,6 +40,15 @@ function postTile(post) {
     return post.getText('post.title') ;
 }
 
+exports.postDescription = postDescription
+
+function postDescription(post) {
+    if (!post) {
+        return '';
+    }
+    return post.getText('post.shortlede') ;
+}
+
 exports.blogHomeDescription = blogHomeDescription
 
 function blogHomeDescription(bloghome) {
