@@ -11,13 +11,17 @@ exports.post = function(req, res) {
 
   var p = Prismic.withContext(req, res);
   p.getByUID('post', uid, function then(err, post) {
-
-    res.render('post', {
-      'post': post,
-      'helpers': {
-        'general': general
-      }
-    })
+    if (post) {
+      res.render('post', {
+        'post': post,
+        'helpers': {
+          'general': general
+        }
+      })
+    } else {
+      res.status(404)
+          .send('Not found');
+    }
   })
 }
 
@@ -51,18 +55,22 @@ exports.bloghome = function(req, res) {
       var p = Prismic.withContext(req, res);
       p.getByID(bloghomeId, function then(err, bloghome) {
         if (err) { configuration.onPrismicError(err, req, res); return; }
-        p.query('[[:d = at(document.type, "post")]]', options, function then(err, response) {
-          if (err) { configuration.onPrismicError(err, req, response); return; }
-          res.render('bloghome', {
-            'bloghome' : bloghome,
-            'posts' :response.results,
-            'helpers': {
-              'general': general
-            }
+        if (bloghome) {
+          p.query('[[:d = at(document.type, "post")]]', options, function then(err, response) {
+            if (err) { configuration.onPrismicError(err, req, response); return; }
+            res.render('bloghome', {
+              'bloghome' : bloghome,
+              'posts' :response.results,
+              'helpers': {
+                'general': general
+              }
+            })
           })
-        })
+        } else {
+          res.status(404)
+            .send('Not found');
+        }
       })
-
     }
   })
 }

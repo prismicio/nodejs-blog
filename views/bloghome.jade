@@ -9,12 +9,14 @@ head
     script(src="/javascript/vendors/jquery-1.11.2.min.js")
 body.page
     div.main
-    - var bloghomeImageUrl = general.blogHomeImageUrl(bloghome)
-    - var illustrationUrl = bloghomeImageUrl ? bloghomeImageUrl : ''
+    - var image = bloghome.getImage('bloghome.image')
+    - var maybeBloghomeImageUrl = image? image.getView("main").url : ''
+    - var illustrationUrl = maybeBloghomeImageUrl ? maybeBloghomeImageUrl : ''
+
     div.blog-header.home(style='background-image: url(' + illustrationUrl + ');')
         div.wrapper
-            h1.blog-title !{general.blogHomeTile(bloghome)}
-            p.lead.blog-description !{general.blogHomeDescription(bloghome)}
+            h1.blog-title !{bloghome.getText('bloghome.headline')}
+            p.lead.blog-description !{bloghome.getText('bloghome.description')}
     div.container.blog-main
         for post in posts
             +postContentPreview(post)

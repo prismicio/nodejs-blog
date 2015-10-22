@@ -15,16 +15,18 @@ mixin postImageWithCaption(groupDoc)
         span.image-label !{caption.asText()}
 
 mixin postContent(post)
-    - var postImageUrl = general.postImageUrl(post)
-    - var illustrationUrl = postImageUrl ? postImageUrl : ''
+    - var image = post.getImage('post.image');
+    - var maybeImageUrl = image? image.getView("main").url : ''
+    - var illustrationUrl = maybeImageUrl ? maybeImageUrl : ''
+
     div.blog-header.single(style='background-image: url(' + illustrationUrl + ');')
         div.wrapper
-            h1 !{general.postTile(post)}
+            h1 !{post.getText('post.title')}
             p.description
-                !{general.postDescription(post)}
+                !{post.getText('post.shortlede')}
             p.meta
                 span.date !{general.getDate(post)}
-                span.author !{general.getAuthor(post)}
+                span.author the-author-name
 
     div.blog-main.single.container
         - var slices = post.getSliceZone("post.body").value
