@@ -23,7 +23,7 @@ mixin postContent(post)
             p.description
                 !{general.postDescription(post)}
             p.meta
-                !{general.getDate(post).asText()},
+                span.date !{general.getDate(post)}
                 span.author !{general.getAuthor(post)}
 
     div.blog-main.single.container
