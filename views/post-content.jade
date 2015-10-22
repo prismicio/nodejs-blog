@@ -1,19 +1,5 @@
 - var general = helpers.general
 
-mixin postText(text)
-    div !{text}
-
-mixin postQuote(quote)
-    span.block-quotation !{quote}
-
-mixin postImageWithCaption(groupDoc)
-    - var imageUrl = groupDoc[0].getImage('illustration').getView("main").url
-    p.block-img
-        img(src=imageUrl)
-    - var caption = groupDoc[0].get('caption')
-    p
-        span.image-label !{caption.asText()}
-
 mixin postContent(post)
     - var image = post.getImage('post.image');
     - var maybeImageUrl = image? image.getView("main").url : ''
@@ -36,8 +22,14 @@ mixin postContent(post)
                 //- Find the right mixin for a slice type and label.
                 case sliceType
                     when 'text'
-                        +postText(slice.value.asHtml())
+                        div !{slice.value.asHtml()}
                     when 'quote'
-                        +postQuote(slice.value.getFirstParagraph().text)
+                        span.block-quotation !{slice.value.getFirstParagraph().text}
                     when 'image-with-caption'
-                        +postImageWithCaption(slice.value.toArray())
+                         - var groupDoc = slice.value.toArray()
+                         - var imageUrl = groupDoc[0].getImage('illustration').getView("main").url
+                            p.block-img
+                                img(src=imageUrl)
+                            - var caption = groupDoc[0].get('caption')
+                            p
+                                span.image-label !{caption.asText()}
