@@ -12,7 +12,6 @@ mixin postContent(post)
                 !{post.getText('post.shortlede')}
             p.meta
                 span.date !{general.getDate(post)}
-                span.author the-author-name
 
     div.blog-main.single.container
         - var slices = post.getSliceZone("post.body").value
