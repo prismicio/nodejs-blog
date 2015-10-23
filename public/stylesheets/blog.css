@@ -129,12 +129,6 @@ pre, ul {
   background: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,0) 1%, rgba(0,0,0,0.05) 80%, rgba(0,0,0,0.1) 90%, rgba(0, 0, 0, 0.2) 100%);
 }
 
-.blog-header .date + .author::before {
-  content: ',';
-  padding-right: 6px;
-}
-
-
 /*
  * Blog posts
  */
