@@ -18,6 +18,8 @@ var express = require('express'),
 
 var app = express();
 
+app.locals.general = require('./includes/general')
+
 // Prismic.io configuration
 
 prismic.init(configuration);

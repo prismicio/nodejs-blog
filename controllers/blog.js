@@ -1,6 +1,6 @@
 var Prismic = require('express-prismic').Prismic,
-    configuration = require('../prismic-configuration').Configuration,
-    general = require('../includes/general');
+    configuration = require('../prismic-configuration').Configuration;
+
 
 exports.post = function(req, res) {
 
@@ -13,10 +13,7 @@ exports.post = function(req, res) {
   p.getByUID('post', uid, function then(err, post) {
     if (post) {
       res.render('post', {
-        'post': post,
-        'helpers': {
-          'general': general
-        }
+        'post': post
       })
     } else {
       res.status(404)
@@ -60,10 +57,7 @@ exports.bloghome = function(req, res) {
             if (err) { configuration.onPrismicError(err, req, response); return; }
             res.render('bloghome', {
               'bloghome' : bloghome,
-              'posts' :response.results,
-              'helpers': {
-                'general': general
-              }
+              'posts' :response.results
             })
           })
         } else {
