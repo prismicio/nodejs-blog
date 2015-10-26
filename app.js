@@ -14,9 +14,7 @@ var express = require('express'),
     path = require('path'),
     prismic = require('express-prismic').Prismic,
     configuration = require('./prismic-configuration').Configuration,
-    blog = require('./blog'),
-    controllers = require('./controllers');
-
+    blog = require('./blog');
 var app = express();
 
 app.locals.general = require('./includes/general')
