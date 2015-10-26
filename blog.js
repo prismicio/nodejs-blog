@@ -1,5 +1,5 @@
 var Prismic = require('express-prismic').Prismic,
-    configuration = require('../prismic-configuration').Configuration;
+    configuration = require('./prismic-configuration').Configuration;
 
 
 exports.post = function(req, res) {

@@ -14,6 +14,7 @@ var express = require('express'),
     path = require('path'),
     prismic = require('express-prismic').Prismic,
     configuration = require('./prismic-configuration').Configuration,
+    blog = require('./blog'),
     controllers = require('./controllers');
 
 var app = express();
@@ -48,17 +49,14 @@ function handleError(err, req, res) {
 }
 
 // Routes
-/*
-To add a new controller add it to index.js and create the corresponding file.
-*/
 
 app.route('/').get(function(req, res){
   res.render('index');
 });
 
-app.route('/blog/:year/:month/:day/:uid').get(controllers.blog.post);
+app.route('/blog/:year/:month/:day/:uid').get(blog.post);
 
-app.route('/blog').get(controllers.blog.bloghome);
+app.route('/blog').get(blog.bloghome);
 
 app.route('/preview').get(prismic.preview);
 
