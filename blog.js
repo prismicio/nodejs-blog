@@ -4,10 +4,7 @@ var Prismic = require('express-prismic').Prismic,
 
 exports.post = function(req, res) {
 
-  var year = req.params['year'],
-      month = req.params['month'],
-      day = req.params['day'],
-      uid = req.params['uid'];
+  var uid = req.params['uid'];
 
   var p = Prismic.withContext(req, res);
   p.getByUID('post', uid, function then(err, post) {

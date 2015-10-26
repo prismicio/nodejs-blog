@@ -52,7 +52,7 @@ app.route('/').get(function(req, res){
   res.render('index');
 });
 
-app.route('/blog/:year/:month/:day/:uid').get(blog.post);
+app.route('/blog/:uid').get(blog.post);
 
 app.route('/blog').get(blog.bloghome);
 

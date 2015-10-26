@@ -17,14 +17,7 @@ exports.Configuration = {
       return '/blog';
     }
     if (doc.type == 'post') {
-      var date = doc.getDate('post.date'),
-          year = date ? date.getUTCFullYear() : '0',
-          month = date.getMonth().toString(),
-          monthPadded = date ? (month.length == 1 ? ('0' + month) : month) : '0',
-          day = date.getDay().toString(),
-          dayPadded  = date ? (day.length == 1 ? ('0' + day) : day) : '0';
-
-      return '/blog/' + year + '/' +  monthPadded + '/' + dayPadded + '/' + encodeURIComponent(doc.uid);
+      return '/blog/' + encodeURIComponent(doc.uid);
     }
 
     return '/';
