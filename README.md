@@ -14,12 +14,12 @@ Create the Custom Type of your page in prismic.io Writing-room
 
 * Create a new `type-id` and and a `Type label` that correspond to a blog home. for example `bloghome`, `Blog's home`.
 
-* Start with using this [sample Custom Type](https://gist.github.com/faresd/ca1cb401ea94c7ee228e).
+* Start with using this [sample bloghome Custom Type](https://gist.github.com/faresd/ca1cb401ea94c7ee228e).
   * This type contains a headline, description  and an image as well as children that correspond and links to posts.
   
 * Create another `type-id` and and a `Type label` that correspond to a post. for example `post`, `Post`.
 
-* Start with using this [sample Custom Type](https://gist.github.com/faresd/89ccd4d6baae26d0bc16).
+* Start with using this [sample post Custom Type](https://gist.github.com/faresd/89ccd4d6baae26d0bc16).
   * This type contains mainly (a title, shortlede and an image) as a post header, and a slice that contains (text, quote and an image with its caption) as a post body.
 
 ##### Custom Type instance (document)
