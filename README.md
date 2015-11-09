@@ -1,23 +1,47 @@
-## Starter for NodeJS projects
-
-This is a blank [NodeJS](http://nodejs.org/) (using [express](http://expressjs.com/)) project that will connect to any prismic.io repository, and trivially list its documents. It uses the prismic.io JavaScript development kit, and provides a few helpers to integrate with [express](http://expressjs.com/).
+## prismic.io Blog Starter for NodeJS (uses express and jade)
 
 ### Getting started
 
-#### Launch the starter project
+Blog Starter is a blog template backed by prismic.io CMS.
 
-*(Assuming you've [installed Node.js and npm](http://www.joyent.com/blog/installing-node-and-npm/))*
+#### Setting up prismic.io
 
-Fork this repository, then clone your fork, and run this in your newly created directory:
+##### Create your own account and repo on [prismic.io](https://prismic.io/signup).
 
-```sh
-npm install
-node app
-```
+Create the document mask of your page in prismic.io Writing-room
+    
+* Navigate to `Setting` / `Custom types`
 
-Your Node.js starter project is now up and running! However, by default, it will list and display documents from our "[Les Bonnes Choses](http://lesbonneschoses.prismic.me)" example repository.
+* Create a new `type-id` and and a `Type label` that correspond to a blog home. for example `bloghome`, `Blog's home`.
 
-#### Configure the starter project
+* Start with using this [sample document mask](https://gist.github.com/faresd/ca1cb401ea94c7ee228e).
+  * This type contains a headline, description  and an image as well as children that correspond and links to posts.
+  
+* Create another `type-id` and and a `Type label` that correspond to a post. for example `post`, `Post`.
+
+* Start with using this [sample document mask](https://gist.github.com/faresd/89ccd4d6baae26d0bc16).
+  * This type contains mainly (a title, shortlede and an image) as a post header, and a slice that contains (text, quote and an image with its caption) as a post body.
+
+##### Custom Type instance (document)
+
+Create instances of your custom types
+
+* Navigate to `Your documents` / `Write something`
+* Choose the type `post` you have created.
+* Start by adding the mandatory field `unique-identifier-for-blog-post-url` and then `Post title`...
+* Add as some slices to your post body by clicking on `Add a Content Slice...`
+* Go to Metadata tab, add an auther and a date, save and publish.
+
+* Navigate again to `Your documents` / `Write something`
+* Choose the type `bloghome` you have created.
+* Start by adding your Blog home content `Main title`, `Sub-title` and an `Image`.
+* Go to Child Pages and link the post you have created, save and publish.
+
+
+#### prismic.io Blog Starter for Javascript Node.JS
+
+* Download the [latest release]()
+* Unzip locally or on your server
 
 Edit the `prismic-configuration.js` file to get the application connected to the right repository:
 
@@ -29,10 +53,40 @@ exports.Configuration = {
   // -- Access token if the Master is not open
   // accessToken: 'xxxxxx',
 
+  // OAuth
+  // clientId: 'xxxxxx',
+  // clientSecret: 'xxxxxx',
   ...
 ```
 
-You may have to restart your server.
+* Install [npm & node](https://www.npmjs.com/package/npm)
+
+To run it on your local machine, 2 possibilities:
+
+In command line:
+* using [nodemon](https://github.com/remy/nodemon) (node wrapper)
+```
+npm install -g nodemon
+```
+```
+nodemon app
+```
+
+* using node
+```
+npm install
+```
+```
+node app
+```
+You are all set, just navigate to `/blog` to open your Blog...
+
+#### Further development
+
+This Website Starter uses [Jade - Template Engine](http://jade-lang.com/).
+
+To adapt the design of your web site; you can modify the corresponding slices in jade  located in: `/views`.
+
 
 #### Deploy your NodeJS application
 
