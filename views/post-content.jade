@@ -1,32 +1,20 @@
 mixin postContent(post)
-    - var image = post.getImage('post.image')
-    - var maybeImageUrl = image? image.getView('main').url : ''
-    - var illustrationUrl = maybeImageUrl ? maybeImageUrl : ''
-
-    div.blog-header.single(style='background-image: url(' + illustrationUrl + ');')
-        div.wrapper
-            h1 !{post.getText('post.title')}
-            p.description
-                !{post.getText('post.shortlede')}
-            p.meta
-                span.date !{general.getDate(post)}
-
     div.blog-main.single.container
-        - var slices = post.getSliceZone('post.body').value
-        for slice in slices
-            - var sliceType = slice.sliceType
-            if sliceType != undefined
-                //- Find the right mixin for a slice type and label.
-                case sliceType
-                    when 'text'
-                        div !{slice.value.asHtml()}
-                    when 'quote'
-                        span.block-quotation !{slice.value.getFirstParagraph().text}
-                    when 'image-with-caption'
-                         - var groupDoc = slice.value.toArray()
-                         - var imageUrl = groupDoc[0].getImage('illustration').getView('main').url
-                            p.block-img
-                                img(src=imageUrl)
-                            - var caption = groupDoc[0].get('caption')
-                            p
-                                span.image-label !{caption.asText()}
+        for slice in post.getSliceZone('post.body').slices
+            //- Render the right markup for a given slice type.
+            case slice.sliceType
+                when 'text'
+                    div !{slice.value.asHtml()}
+                when 'quote'
+                    span.block-quotation !{slice.value.asText()}
+                when 'image-with-caption'
+                    - var imageWithCaption = slice.value.toArray()[0]
+                    p.block-img
+                        img(src=imageWithCaption.getImage('illustration').url)
+                    p
+                        span.image-label !{imageWithCaption.get('caption').asText()}
+
+
+
+
+
