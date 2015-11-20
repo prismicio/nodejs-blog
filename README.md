@@ -11,18 +11,21 @@ Blog Starter is a blog template backed by prismic.io CMS.
 Create the Custom Type of your page in prismic.io Writing-room
     
 * Navigate to `Setting` / `Custom types`
-
-* Create a new `type-id` and and a `Type label` that correspond to a blog home. for example `bloghome`, `Blog's home`.
-
-* Start with using this [sample bloghome Custom Type](https://gist.github.com/faresd/ca1cb401ea94c7ee228e).
-  * This type contains a headline, description  and an image as well as children that correspond and links to posts.
   
 * Create another `type-id` and and a `Type label` that correspond to a post. for example `post`, `Post`.
 
-* Start with using this [sample post Custom Type](https://gist.github.com/faresd/89ccd4d6baae26d0bc16).
+* Start with using this [sample post Custom Type](https://gist.github.com/faresd/69d4160a5eb7ba5cfd5f).
   * This type contains mainly (a title, shortlede and an image) as a post header, and a slice that contains (text, quote and an image with its caption) as a post body.
 
 ##### Custom Type instance (document)
+
+Create an instance of you custom types
+
+* Navigate to `Your documents` / `Write something`
+* Choose the custom type you have created
+* Start by adding your page content `Slices` on the left side `Add a Content Slice...` (`Slides`, `Alternated Highlights`, `Section Header`, `separator`)
+* Finally add your page url `unique-identifier-for-page-url` in Metadata tab (uid) and you Page meta title for example : `website-starter-sample-page`, `Website Starter Sample Page`
+* Publish
 
 Create instances of your custom types
 
@@ -79,7 +82,7 @@ npm install
 ```
 node app
 ```
-You are all set, just navigate to `/blog` to open your Blog...
+You are all set, just navigate to `/blog/search?terms=your-keyword` to open your Post...
 
 #### Further development
 
