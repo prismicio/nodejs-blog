@@ -61,7 +61,7 @@ app.route('/blog/search').get(function(req, res) {
         res.status(404).send("404 not found");
       } else {
         res.render('index', {
-          postsContent: postsContent.results[0]
+          postContent: postsContent.results[0]
         });
       }
     }

@@ -7,26 +7,17 @@ head
     script(src="/javascript/vendors/jquery-1.11.2.min.js")
 body
     div.main
-        div.blog-content
-        for slice in postsContent.getSliceZone('post-slices.body').slices
-            //- Render the right markup for a given slice type.
-            case slice.sliceType
-                when 'text'
-                    div.post-part.single.col-1
+        div.post-part.single.container
+            for slice in postContent.getSliceZone('post-slices.body').slices
+                //- Render the right markup for a given slice type.
+                case slice.sliceType
+                    when 'text'
                         div !{slice.value.asHtml()}
-                when 'quote'
-                    div.post-part.single.col-1
+                    when 'quote'
                         span.block-quotation !{slice.value.asText()}
-                when 'image-with-caption'
-                    - var imageWithCaption = slice.value.toArray()[0]
-                    case slice.label
-                        when 'image-full-width'
-                            div.blog-header.single(style='background-image: url(' + imageWithCaption.getImage('illustration').url + ');')
-                                div.wrapper
-                                    h1 !{imageWithCaption.get('caption').asText()}
-                        default
-                            div.post-part.single.col-1
-                                p.block-img
-                                    img(src=imageWithCaption.getImage('illustration').url)
-                                p
-                                    span.image-label !{imageWithCaption.get('caption').asText()}
+                    when 'image-with-caption'
+                        - var imageWithCaption = slice.value.toArray()[0]
+                        p.block-img
+                            img(src=imageWithCaption.getImage('illustration').url)
+                        p
+                            span.image-label !{imageWithCaption.get('caption').asText()}
