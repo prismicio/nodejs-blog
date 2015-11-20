@@ -13,8 +13,8 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     prismic = require('express-prismic').Prismic,
-    configuration = require('./prismic-configuration').Configuration,
-    blog = require('./blog');
+    configuration = require('./prismic-configuration').Configuration;
+
 var app = express();
 
 app.locals.general = require('./includes/general')
@@ -25,7 +25,7 @@ prismic.init(configuration);
 
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(favicon("public/images/punch.png"));
@@ -48,13 +48,25 @@ function handleError(err, req, res) {
 
 // Routes
 
-app.route('/').get(function(req, res){
-  res.render('index');
+app.route('/blog/search').get(function(req, res) {
+  var p = prismic.withContext(req, res);
+  var terms = req.query.terms;
+  p.query([
+      prismic.Predicates.at("document.type", "post-slices"),
+      prismic.Predicates.fulltext("document", terms)
+    ],
+    { pageSize : 10 },
+    function(err, postsContent) {
+      if(!postsContent) {
+        res.status(404).send("404 not found");
+      } else {
+        res.render('index', {
+          postsContent: postsContent.results[0]
+        });
+      }
+    }
+  );
 });
-
-app.route('/blog/:uid').get(blog.post);
-
-app.route('/blog').get(blog.bloghome);
 
 app.route('/preview').get(prismic.preview);
 

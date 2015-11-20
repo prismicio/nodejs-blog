@@ -1,6 +1,6 @@
 exports.Configuration = {
 
-  apiEndpoint: 'https://nodejsblogpost.prismic.io/api',
+  apiEndpoint: 'https://newinstancefdr.prismic.io/api',
 
   // -- Access token if the Master is not open
   // accessToken: 'xxxxxx',

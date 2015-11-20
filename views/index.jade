@@ -1,9 +1,32 @@
-extends ./layout.jade
-
-block body
-    div.welcome
-        img(src='/images/powerstart.png', class='star')
-        h1 Welcome aboard!
-        p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-        p Checkout our 
-          a(href='http://prismic.io/quickstart') Quick Start Tutorial
+head
+    link(rel="stylesheet", href="/stylesheets/reset.css")
+    link(rel="stylesheet", href="/stylesheets/common.css")
+    link(rel="stylesheet", href="/stylesheets/blog.css")
+    link(rel="stylesheet", href="/stylesheets/main.css")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    script(src="/javascript/vendors/jquery-1.11.2.min.js")
+body
+    div.main
+        div.blog-content
+        for slice in postsContent.getSliceZone('post-slices.body').slices
+            //- Render the right markup for a given slice type.
+            case slice.sliceType
+                when 'text'
+                    div.post-part.single.col-1
+                        div !{slice.value.asHtml()}
+                when 'quote'
+                    div.post-part.single.col-1
+                        span.block-quotation !{slice.value.asText()}
+                when 'image-with-caption'
+                    - var imageWithCaption = slice.value.toArray()[0]
+                    case slice.label
+                        when 'image-full-width'
+                            div.blog-header.single(style='background-image: url(' + imageWithCaption.getImage('illustration').url + ');')
+                                div.wrapper
+                                    h1 !{imageWithCaption.get('caption').asText()}
+                        default
+                            div.post-part.single.col-1
+                                p.block-img
+                                    img(src=imageWithCaption.getImage('illustration').url)
+                                p
+                                    span.image-label !{imageWithCaption.get('caption').asText()}
