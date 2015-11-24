@@ -47,10 +47,10 @@ exports.bloghome = function(req, res) {
       };
       var p = Prismic.withContext(req, res);
       p.getByID(bloghomeId, function (err, bloghome) {
-        if (err) { configuration.onPrismicError(err, req, res); return; }
+        if (err) { return configuration.onPrismicError(err, req, res); }
         if (bloghome) {
           p.query('[[:d = at(document.type, "post")]]', options, function (err, response) {
-            if (err) { configuration.onPrismicError(err, req, response); return; }
+            if (err) { return configuration.onPrismicError(err, req, response); }
             res.render('bloghome', {
               'bloghome' : bloghome,
               'posts' :response.results
