@@ -1,9 +1,9 @@
-var month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+var month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-exports.getDate = getDate
+exports.getDate = getDate;
 function getDate(post) {
-    var date = post.getDate('post.date')
-    var suffix = ''
+    var date = post.getDate('post.date');
+    var suffix = '';
     switch (date.getUTCDate().toString().substr(date.getUTCDate().toString().length - 1)) {
         case '1':
             suffix = 'st';
@@ -15,19 +15,19 @@ function getDate(post) {
             suffix = 'rd';
             break;
         default :
-            suffix = 'th'
+            suffix = 'th';
     }
 
     if (date) {
-        var formatedDate = month_names_short[date.getUTCMonth()] + ', ' + date.getUTCDate() + suffix + ' '+ date.getUTCFullYear()
-        return formatedDate
+        var formatedDate = month_names_short[date.getUTCMonth()] + ', ' + date.getUTCDate() + suffix + ' '+ date.getUTCFullYear();
+        return formatedDate;
     }
 }
 
-exports.firstStructuredTextsFromSlices = firstStructuredTextsFromSlices
+exports.firstStructuredTextsFromSlices = firstStructuredTextsFromSlices;
 
 function firstStructuredTextsFromSlices(slices) {
     return slices.filter(function(slice) {
-        return slice.sliceType == 'text'
-    })[0].value
+        return slice.sliceType == 'text';
+    })[0].value;
 }
