@@ -66,8 +66,5 @@ exports.bloghome = function(req, res) {
 };
 
 function currentPage(request) {
-  var pageQuery = request.params['p'];
-  if (pageQuery) {
-    return pageQuery;
-  } else return '1';
+  return request.params.p || '1';
 }
