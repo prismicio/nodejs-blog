@@ -46,10 +46,10 @@ exports.bloghome = function(req, res) {
         'orderings' :'[my.post.date desc]'
       };
       var p = Prismic.withContext(req, res);
-      p.getByID(bloghomeId, function then(err, bloghome) {
+      p.getByID(bloghomeId, function (err, bloghome) {
         if (err) { configuration.onPrismicError(err, req, res); return; }
         if (bloghome) {
-          p.query('[[:d = at(document.type, "post")]]', options, function then(err, response) {
+          p.query('[[:d = at(document.type, "post")]]', options, function (err, response) {
             if (err) { configuration.onPrismicError(err, req, response); return; }
             res.render('bloghome', {
               'bloghome' : bloghome,
