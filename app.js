@@ -62,5 +62,5 @@ app.route('/preview').get(prismic.preview);
 var PORT = app.get('port');
 
 app.listen(PORT, function() {
-  console.log('Express server listening on port ' + PORT);
+  console.log('Express server listening on http://localhost:' + PORT);
 });
