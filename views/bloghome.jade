@@ -8,7 +8,7 @@ head
 body.page
     div.main
     - var image = bloghome.getImage('bloghome.image')
-    - var maybeBloghomeImageUrl = image? image.getView("main").url : ''
+    - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
     - var illustrationUrl = maybeBloghomeImageUrl ? maybeBloghomeImageUrl : ''
 
     div.blog-header.home(style='background-image: url(' + illustrationUrl + ');')
@@ -21,11 +21,14 @@ body.page
             div.blog-post
                 h2.blog-post-title
                     a(href=ctx.linkResolver(post))
-                        !{post.getFirstTitle().text}
+                        != post.getFirstTitle().text
                 p.blog-post-meta
                     a.created-at !{general.getDate(post)}
                 //- display first valid slice text and limit it respecting the end of words.
                 - var firstParagraphInPost = general.firstStructuredTextsFromSlices(slices).getFirstParagraph().text
                 - var textLimit = 300
                 - var limitedText = firstParagraphInPost.substr(0, textLimit)
-                !{firstParagraphInPost.length > textLimit ? limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...' : firstParagraphInPost }
+                if firstParagraphInPost.length > textLimit
+                    = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
+                else
+                    = firstParagraphInPost
