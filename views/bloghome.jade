@@ -8,7 +8,7 @@ head
 body.page
     div.main
     - var image = bloghome.getImage('bloghome.image')
-    - var maybeBloghomeImageUrl = image? image.getView("main").url : ''
+    - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
     - var illustrationUrl = maybeBloghomeImageUrl ? maybeBloghomeImageUrl : ''
 
     div.blog-header.home(style='background-image: url(' + illustrationUrl + ');')
@@ -28,4 +28,7 @@ body.page
                 - var firstParagraphInPost = general.firstStructuredTextsFromSlices(slices).getFirstParagraph().text
                 - var textLimit = 300
                 - var limitedText = firstParagraphInPost.substr(0, textLimit)
-                != firstParagraphInPost.length > textLimit ? limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...' : firstParagraphInPost
+                if firstParagraphInPost.length > textLimit
+                    = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
+                else
+                    = firstParagraphInPost

@@ -26,5 +26,5 @@ exports.Configuration = {
     res.status(500)
       .send("Error 500: " + err.message);
   }
- 
+
 };

@@ -19,7 +19,8 @@ function getDate(post) {
     }
 
     if (date) {
-        var formatedDate = month_names_short[date.getUTCMonth()] + ', ' + date.getUTCDate() + suffix + ' '+ date.getUTCFullYear();
+        var formatedDate = month_names_short[date.getUTCMonth()] + ', ' +
+            date.getUTCDate() + suffix + ' ' + date.getUTCFullYear();
         return formatedDate;
     }
 }

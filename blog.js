@@ -53,7 +53,7 @@ exports.bloghome = function(req, res) {
             if (err) { return configuration.onPrismicError(err, req, response); }
             res.render('bloghome', {
               'bloghome' : bloghome,
-              'posts' :response.results
+              'posts' : response.results
             });
           });
         } else {
