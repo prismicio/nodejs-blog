@@ -35,10 +35,9 @@ Create instances of your custom types
 * Navigate again to `Your documents` / `Write something`
 * Choose the type `bloghome` you have created.
 * Start by adding your Blog home content `Main title`, `Sub-title` and an `Image`.
-* Go to Child Pages and link the post you have created
+* Go to Child Pages and link the post you have created, save and publish.
 * Bookmark your bloghome to use it as your home page; by going to `Setting` / `Bookmarks`
-  * Add a 'bookmark-id' For example `bloghome` and link it to your bloghome document you have created
-* Save and publish.
+  * Add a 'bookmark-id' For example `bloghome` and link it to your bloghome document you have created.
 
 
 #### prismic.io Blog Starter for Javascript Node.JS
