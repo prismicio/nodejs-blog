@@ -64,15 +64,6 @@
     }
   },
   "Metadata" : {
-    "author" : {
-      "fieldset" : "Author",
-      "type" : "Link",
-      "config" : {
-        "placeholder" : "Select an author",
-        "select" : "document",
-        "masks" : [ "author" ]
-      }
-    },
     "date" : {
       "fieldset" : "Post properties",
       "type" : "Date",
