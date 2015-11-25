@@ -1,0 +1,44 @@
+{
+  "Main" : {
+    "headline" : {
+      "type" : "StructuredText",
+      "config" : {
+        "placeholder" : "Main title...",
+        "single" : "heading1"
+      }
+    },
+    "description" : {
+      "type" : "StructuredText",
+      "config" : {
+        "placeholder" : "Sub-title",
+        "single" : "heading2"
+      }
+    },
+    "image" : {
+      "type" : "Image"
+    }
+  },
+  "Child Pages" : {
+    "children" : {
+      "type" : "Group",
+      "fieldset" : "Child pages are used for the menu and the URL hierarchy",
+      "config" : {
+        "fields" : {
+          "label" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Link label"
+            }
+          },
+          "link" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "document",
+              "masks" : [ "page", "bloghome" ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

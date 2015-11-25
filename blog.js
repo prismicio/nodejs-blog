@@ -19,29 +19,17 @@ exports.post = function(req, res) {
   });
 };
 
-
 exports.bloghome = function(req, res) {
   Prismic.withContext(req, res, function then(error, ctx) {
     if (error) { configuration.onPrismicError(error, req, res); return; }
-    var homeId = ctx.api.bookmarks.home;
     var bloghomeId = ctx.api.bookmarks.bloghome;
 
     if(bloghomeId === undefined) {
       req.status(404)
         .send('Not found');
-    } else if (bloghomeId == homeId) {
-      res.redirect('/');
     } else {
       var page = currentPage(req);
       var options = {
-        'fetchLinks' : [
-          'post.date',
-          'category.name',
-          'author.full_name',
-          'author.first_name',
-          'author.surname',
-          'author.company'
-        ],
         'page' : page,
         'orderings' :'[my.post.date desc]'
       };

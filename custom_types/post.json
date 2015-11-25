@@ -1,0 +1,84 @@
+{
+  "Blog Post" : {
+    "uid" : {
+      "type" : "UID",
+      "config" : {
+        "placeholder" : "unique-identifier-for-blog-post-url"
+      }
+    },
+    "body" : {
+      "fieldset" : "Post content",
+      "type" : "Slices",
+      "config" : {
+        "labels" : {
+          "image-with-caption" : [ {
+            "name" : "image-left",
+            "display" : "Left"
+          }, {
+            "name" : "image-full-width",
+            "display" : "Full"
+          } ]
+        },
+        "choices" : {
+          "text" : {
+            "type" : "StructuredText",
+            "fieldset" : "Text",
+            "config" : {
+              "multi" : "paragraph, heading2, heading3, strong, em, hyperlink",
+              "placeholder" : "Post text..."
+            }
+          },
+          "quote" : {
+            "type" : "StructuredText",
+            "fieldset" : "Quote",
+            "config" : {
+              "placeholder" : "Post quote...",
+              "single" : "paragraph"
+            }
+          },
+          "image-with-caption" : {
+            "type" : "Group",
+            "fieldset" : "Post image and caption",
+            "config" : {
+              "fields" : {
+                "illustration" : {
+                  "type" : "Image",
+                  "config" : {
+                    "constraint" : {
+                      "width" : 640
+                    }
+                  }
+                },
+                "caption" : {
+                  "type" : "StructuredText",
+                  "config" : {
+                    "single" : "heading3",
+                    "placeholder" : "Image caption..."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Metadata" : {
+    "author" : {
+      "fieldset" : "Author",
+      "type" : "Link",
+      "config" : {
+        "placeholder" : "Select an author",
+        "select" : "document",
+        "masks" : [ "author" ]
+      }
+    },
+    "date" : {
+      "fieldset" : "Post properties",
+      "type" : "Date",
+      "config" : {
+        "label" : "Post date"
+      }
+    }
+  }
+}
