@@ -30,12 +30,11 @@ Create instances of your custom types
 * Choose the type `post` you have created.
 * Start by adding the mandatory field `unique-identifier-for-blog-post-url` and then `Post title`...
 * Add as some slices to your post body by clicking on `Add a Content Slice...`
-* Go to Metadata tab, add an auther and a date, save and publish.
+* Go to Metadata tab, add  a date, save and publish.
 
 * Navigate again to `Your documents` / `Write something`
 * Choose the type `bloghome` you have created.
-* Start by adding your Blog home content `Main title`, `Sub-title` and an `Image`.
-* Go to Child Pages and link the post you have created, save and publish.
+* Start by adding your Blog home content `Main title`, `Sub-title` and an `Image`, save and publish.
 * Bookmark your bloghome to use it as your home page; by going to `Setting` / `Bookmarks`
   * Add a 'bookmark-id' For example `bloghome` and link it to your bloghome document you have created.
 
