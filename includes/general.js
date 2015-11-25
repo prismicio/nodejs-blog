@@ -24,11 +24,3 @@ function getDate(post) {
         return formatedDate;
     }
 }
-
-exports.firstStructuredTextsFromSlices = firstStructuredTextsFromSlices;
-
-function firstStructuredTextsFromSlices(slices) {
-    return slices.filter(function(slice) {
-        return slice.sliceType == 'text';
-    })[0].value;
-}
