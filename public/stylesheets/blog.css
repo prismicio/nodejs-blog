@@ -42,7 +42,7 @@ pre, ul {
 .col-1 {
   max-width: 700px;
   margin: auto;
-  padding: 10px 0px 0px 10px;
+  padding: 20px 0px 0px 0px;
 }
 
 .blog-main {
@@ -188,7 +188,7 @@ pre, ul {
   margin-left: 0;
 }
 
-.post-part.single p, .blog-main.single p {
+.blog-main.single p {
   margin-bottom: 20px;
 }
 
