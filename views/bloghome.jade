@@ -20,11 +20,11 @@ block body
                 div.blog-post
                     h2.blog-post-title
                         a(href=ctx.linkResolver(post))
-                            != post.getFirstTitle()? post.getFirstTitle().text : 'Untitled post'
+                            != post.getFirstTitle()? post.getFirstTitle().text : 'Untitled'
                     p.blog-post-meta
                         a.created-at !{general.getDate(post)}
                     //- display first valid slice text and limit it respecting the end of words.
-                    - var firstParagraphInPost = post.getFirstParagraph().text
+                    - var firstParagraphInPost = post.getFirstParagraph().text? post.getFirstParagraph().text: ''
                     - var textLimit = 300
                     - var limitedText = firstParagraphInPost.substr(0, textLimit)
                     if firstParagraphInPost.length > textLimit

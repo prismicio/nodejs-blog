@@ -17,17 +17,21 @@ block body
                             span.block-quotation !{slice.value.asText()}
                     when 'image-with-caption'
                         - var imageWithCaption = slice.value.toArray()[0]
+                        - var imageUrl = imageWithCaption.getImage('illustration') ? imageWithCaption.getImage('illustration').url : ''
+                        - var caption = imageWithCaption.get('caption')
                         case slice.label
                             when 'image-full-width'
-                                div.blog-header.single(style='background-image: url(' + imageWithCaption.getImage('illustration').url + ');')
+                                div.blog-header.single(style='background-image: url(' + imageUrl + ');')
                                     div.wrapper
-                                        h1 !{imageWithCaption.get('caption').asText()}
+                                        if caption
+                                            h1 !{caption.asText()}
                                         p.meta
                                             span.date !{general.getDate(post)}
-                                            
+
                             default
                                 div.post-part.single.col-1
                                     p.block-img
-                                        img(src=imageWithCaption.getImage('illustration').url)
-                                    p
-                                        span.image-label !{imageWithCaption.get('caption').asText()}
+                                        img(src=imageUrl)
+                                    if caption
+                                        p
+                                            span.image-label !{caption.asText()}
