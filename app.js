@@ -49,9 +49,12 @@ function handleError(err, req, res) {
 
 // Routes
 
-app.route('/blog/:uid').get(blog.post);
 
 app.route('/').get(blog.bloghome);
+
+app.route('/blog').get(blog.bloghome);
+
+app.route('/blog/:uid').get(blog.post);
 
 app.route('/preview').get(prismic.preview);
 
