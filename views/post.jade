@@ -22,7 +22,9 @@ block body
                                 div.blog-header.single(style='background-image: url(' + imageWithCaption.getImage('illustration').url + ');')
                                     div.wrapper
                                         h1 !{imageWithCaption.get('caption').asText()}
-
+                                        p.meta
+                                            span.date !{general.getDate(post)}
+                                            
                             default
                                 div.post-part.single.col-1
                                     p.block-img

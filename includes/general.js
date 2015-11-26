@@ -18,7 +18,7 @@ function getDate(post) {
             default :
                 suffix = 'th';
         }
-        
+
         var formatedDate = month_names_short[date.getUTCMonth()] + ', ' +
             date.getUTCDate() + suffix + ' ' + date.getUTCFullYear();
         return formatedDate;
