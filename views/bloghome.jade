@@ -20,7 +20,7 @@ block body
                 div.blog-post
                     h2.blog-post-title
                         a(href=ctx.linkResolver(post))
-                            != post.getFirstTitle().text
+                            != post.getFirstTitle()? post.getFirstTitle().text : 'Untitled post'
                     p.blog-post-meta
                         a.created-at !{general.getDate(post)}
                     //- display first valid slice text and limit it respecting the end of words.
