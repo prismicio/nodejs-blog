@@ -5,24 +5,23 @@ block title
 
 block body
     body.page
-        div.main
         - var image = bloghome.getImage('bloghome.image')
         - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
         - var illustrationUrl = maybeBloghomeImageUrl ? maybeBloghomeImageUrl : ''
 
-        div.blog-header.home(style='background-image: url(' + illustrationUrl + ');')
-            div.wrapper
-                h1.blog-title !{bloghome.getText('bloghome.headline')}
-                p.lead.blog-description !{bloghome.getText('bloghome.description')}
-        div.container.blog-main
+        div.home
+            div.blog-avatar(style='background-image: url(' + illustrationUrl + ');')
+            h1.blog-title !{bloghome.getText('bloghome.headline')}
+            p.blog-description !{bloghome.getText('bloghome.description')}
+        div.blog-main
             for post in posts
                 - var slices = post.getSliceZone('post.body').slices
                 div.blog-post
-                    h2.blog-post-title
+                    h2
                         a(href=ctx.linkResolver(post))
                             != post.getFirstTitle()? post.getFirstTitle().text : 'Untitled'
                     p.blog-post-meta
-                        a.created-at !{general.getDate(post)}
+                        span.created-at !{general.getDate(post)}
                     //- display first valid slice text and limit it respecting the end of words.
                     - var firstParagraphInPost = post.getFirstParagraph().text? post.getFirstParagraph().text: ''
                     - var textLimit = 300
@@ -31,3 +30,5 @@ block body
                         = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
                     else
                         = firstParagraphInPost
+        footer
+            p Proudly published with <strong>prismic.io</strong>

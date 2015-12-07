@@ -5,15 +5,16 @@ block title
 block body
     body
         div.main
-            div.blog-content
+            div.back
+                a(href='./') back to list
             for slice in post.getSliceZone('post.body').slices
                 //- Render the right markup for a given slice type.
                 case slice.sliceType
                     when 'text'
-                        div.post-part.single.col-1
+                        div.post-part.single.container
                             div !{slice.value.asHtml()}
                     when 'quote'
-                        div.post-part.single.col-1
+                        div.post-part.single.container
                             span.block-quotation !{slice.value.asText()}
                     when 'image-with-caption'
                         - var imageWithCaption = slice.value.toArray()[0]
@@ -25,13 +26,20 @@ block body
                                     div.wrapper
                                         if caption
                                             h1 !{caption.asText()}
-                                        p.meta
-                                            span.date !{general.getDate(post)}
+                            when 'emphasized'
+                                div.post-part.single.container
+                                    p.block-img.emphasized
+                                        img(src=imageUrl)
+                                    if caption
+                                        p
+                                            span.image-label !{caption.asText()}
 
                             default
-                                div.post-part.single.col-1
+                                div.post-part.single.container
                                     p.block-img
                                         img(src=imageUrl)
                                     if caption
                                         p
                                             span.image-label !{caption.asText()}
+        footer
+            p un footer comme un autre
