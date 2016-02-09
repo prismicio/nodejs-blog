@@ -7,7 +7,7 @@ block body
     body.page
         - var image = bloghome.getImage('bloghome.image')
         - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
-        - var illustrationUrl = maybeBloghomeImageUrl ? maybeBloghomeImageUrl : ''
+        - var illustrationUrl = maybeBloghomeImageUrl || ''
 
         div.home
             div.blog-avatar(style='background-image: url(' + illustrationUrl + ');')
@@ -15,15 +15,15 @@ block body
             p.blog-description !{bloghome.getText('bloghome.description')}
         div.blog-main
             for post in posts
-                - var slices = post.getSliceZone('post.body').slices
                 div.blog-post
                     h2
                         a(href=ctx.linkResolver(post))
-                            != post.getFirstTitle()? post.getFirstTitle().text : 'Untitled'
+                            != post.getText('post.title') || 'Untitled'
                     p.blog-post-meta
                         span.created-at !{general.getDate(post)}
                     //- display first valid slice text and limit it respecting the end of words.
-                    - var firstParagraphInPost = post.getFirstParagraph().text? post.getFirstParagraph().text: ''
+                    - var firstParagraph = post.getFirstParagraph()
+                    - var firstParagraphInPost = firstParagraph ? firstParagraph.text : ''
                     - var textLimit = 300
                     - var limitedText = firstParagraphInPost.substr(0, textLimit)
                     if firstParagraphInPost.length > textLimit

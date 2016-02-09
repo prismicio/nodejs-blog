@@ -93,6 +93,15 @@
 /*
  * Blog posts
  */
+h1 {
+  color: #4E4E4E;
+  margin: auto;
+  font-family: 'Lato', sans-serif;
+  text-transform: capitalize;
+  text-align: center;
+  margin: 32px 0 48px 0;
+}
+
 .back{
   color: #9A9A9A;
   display: block;

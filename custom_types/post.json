@@ -6,6 +6,19 @@
         "placeholder" : "unique-identifier-for-blog-post-url"
       }
     },
+    "title": {
+      "type": "Text",
+      "config": {
+        "label": "Title"
+      }
+    },
+    "date" : {
+      "fieldset" : "Post properties",
+      "type" : "Date",
+      "config" : {
+        "label" : "Post date"
+      }
+    },
     "body" : {
       "fieldset" : "Post content",
       "type" : "Slices",
@@ -60,15 +73,6 @@
             }
           }
         }
-      }
-    }
-  },
-  "Metadata" : {
-    "date" : {
-      "fieldset" : "Post properties",
-      "type" : "Date",
-      "config" : {
-        "label" : "Post date"
       }
     }
   }

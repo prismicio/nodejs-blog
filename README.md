@@ -6,17 +6,17 @@ Blog Starter is a blog template backed by prismic.io CMS.
 
 #### Setting up prismic.io
 
-##### Create your own account and repo on [prismic.io](https://prismic.io/signup).
+##### Create your own account and repo on [prismic.io](https://prismic.io/#create).
 
 Create the Custom Type of your page in prismic.io Writing-room
-    
+
 * Navigate to `Setting` / `Custom types`
 
 * Create a new `type-id` and and a `Type label` that correspond to a blog home. for example `bloghome`, `Blog's home`.
 
 * Start with using this [sample bloghome Custom Type](/custom_types/bloghome.json).
   * This type contains a headline, description  and an image as well as children that correspond and links to posts.
-  
+
 * Create another `type-id` and and a `Type label` that correspond to a post. for example `post`, `Post`.
 
 * Start with using this [sample post Custom Type](/custom_types/post.json).
@@ -28,15 +28,14 @@ Create instances of your custom types
 
 * Navigate to `Your documents` / `Write something`
 * Choose the type `post` you have created.
-* Start by adding the mandatory field `unique-identifier-for-blog-post-url` and then `Post title`...
+* Start by adding the mandatory field `unique-identifier-for-blog-post-url` and then `Title`...
 * Add as some slices to your post body by clicking on `Add a Content Slice...`
 * Go to Metadata tab, add  a date, save and publish.
 
 * Navigate again to `Your documents` / `Write something`
 * Choose the type `bloghome` you have created.
 * Start by adding your Blog home content `Main title`, `Sub-title` and an `Image`, save and publish.
-* Bookmark your bloghome to use it as your home page; by going to `Setting` / `Bookmarks`
-  * Add a 'bookmark-id' For example `bloghome` and link it to your bloghome document you have created.
+* if you publish more than one Blog home document, you're gonna query the most recent one.
 
 
 #### prismic.io Blog Starter for Javascript Node.JS

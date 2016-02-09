@@ -7,7 +7,12 @@ block body
         div.main
             div.back
                 a(href='./') back to list
-            for slice in post.getSliceZone('post.body').slices
+
+            h1
+                != post.getText('post.title') || 'Untitled'
+
+            - var sliceZone = post.getSliceZone('post.body') || {}
+            for slice in sliceZone.slices
                 //- Render the right markup for a given slice type.
                 case slice.sliceType
                     when 'text'
