@@ -191,7 +191,7 @@ h1 {
 
 /* Blog footer. */
 
-footer{
+footer {
   max-width: 700px;
   margin: 0 auto;
   color: #9A9A9A;
@@ -200,12 +200,15 @@ footer{
   font-style: italic;
   text-align: center;
 }
-footer p{
+footer p {
   border-top: 1px solid #DADADA;
   padding: 2rem 0;
   margin-bottom: 0;
 }
 
+footer a {
+  font-weight: bold;
+}
 
 @media (max-width: 767px) {
 
