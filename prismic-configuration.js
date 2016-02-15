@@ -1,13 +1,9 @@
 exports.Configuration = {
 
-  apiEndpoint: 'https://nodejs-blog.prismic.io/api',
+  apiEndpoint: 'https://your-prismic-repo.prismic.io/api',
 
   // -- Access token if the Master is not open
   // accessToken: 'xxxxxx',
-
-  // OAuth
-  // clientId: 'xxxxxx',
-  // clientSecret: 'xxxxxx',
 
   // -- Links resolution rules
   // This function will be used to generate links to Prismic.io documents
