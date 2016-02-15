@@ -5,7 +5,7 @@ exports.bloghome = function(req, res) {
 
   var p = Prismic.withContext(req, res);
   p.queryFirst('[[:d = at(document.type, "bloghome")]]', function (err, bloghome) {
-    if (err) { return configuration.onPrismicError(err, req, res); }
+    if (err) { configuration.onPrismicError(err, req, res); return; }
     if (bloghome) {
       var page = currentPage(req);
       var options = {
@@ -13,7 +13,7 @@ exports.bloghome = function(req, res) {
         'orderings' :'[my.post.date desc]'
       };
       p.query('[[:d = at(document.type, "post")]]', options, function (err, response) {
-        if (err) { return configuration.onPrismicError(err, req, response); }
+        if (err) { configuration.onPrismicError(err, req, response); return; }
         res.render('bloghome', {
           'bloghome' : bloghome,
           'posts' : response.results
