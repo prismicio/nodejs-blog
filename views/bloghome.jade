@@ -15,7 +15,7 @@ block body
             p.blog-description !{bloghome.getText('bloghome.description')}
         div.blog-main
             for post in posts
-                div.blog-post
+                div.blog-post(data-wio-id=post.id)
                     h2
                         a(href=ctx.linkResolver(post))
                             != post.getText('post.title') || 'Untitled'

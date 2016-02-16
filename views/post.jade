@@ -8,7 +8,7 @@ block body
             div.back
                 a(href='./') back to list
 
-            h1
+            h1(data-wio-id=post.id)
                 != post.getText('post.title') || 'Untitled'
 
             - var sliceZone = post.getSliceZone('post.body') || {}
