@@ -189,6 +189,10 @@ h1 {
   margin-left: 1em;
 }
 
+.wio-link {
+  float: right;
+}
+
 /* Blog footer. */
 
 footer {
