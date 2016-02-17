@@ -5,11 +5,13 @@ block title
 block body
     body
         div.main
-            div.back
-                a(href='./') back to list
 
-            h1(data-wio-id=post.id)
-                != post.getText('post.title') || 'Untitled'
+            div.outer-container
+                div.back
+                    a(href='./') back to list
+
+                h1(data-wio-id=post.id)
+                    != post.getText('post.title') || 'Untitled'
 
             - var sliceZone = post.getSliceZone('post.body') || {}
             for slice in sliceZone.slices
