@@ -1,14 +1,14 @@
-## prismic.io Nodejs blog (uses express and jade)
+## prismic.io Node.js blog (uses express and jade)
 
-Nodejs blog is a blog template with content managed into prismic.io (API-based CMS).
+Node.js blog is a blog template with content managed into prismic.io (API-based CMS).
 
 #### Getting started
 
 Read this [quick tutorial to get started] (https://prismic.io/docs/sample-blog#?lang=node)
 
-#### Deploy your NodeJS application
+#### Deploy your Node.js blog
 
-An easy way to deploy your Node.js application is to use [Heroku](http://www.heroku.com). Just follow these few simple steps once you have successfully [signed up](https://id.heroku.com/signup/www-header) and [installed the Heroku toolbelt](https://toolbelt.heroku.com/):
+An easy way to deploy your Node.js blog is to use [Heroku](http://www.heroku.com). Just follow these few simple steps once you have successfully [signed up](https://id.heroku.com/signup/www-header) and [installed the Heroku toolbelt](https://toolbelt.heroku.com/):
 
 Create a `Procfile` file at your application root, to declare the server command:
 
