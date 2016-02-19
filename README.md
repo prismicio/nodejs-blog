@@ -4,7 +4,7 @@ Node.js blog is a blog template with content managed into prismic.io (API-based 
 
 #### Getting started
 
-Read this [quick tutorial to get started] (https://prismic.io/docs/sample-blog#?lang=node)
+Read this [guide to get started] (https://prismic.io/docs/sample-blog#?lang=node)
 
 #### Deploy your Node.js blog
 
