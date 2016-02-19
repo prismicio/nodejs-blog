@@ -1,4 +1,4 @@
-## prismic.io Node.js blog (uses express and jade)
+## Sample Blog with API-based CMS
 
 Node.js blog is a blog template with content managed into prismic.io (API-based CMS).
 
