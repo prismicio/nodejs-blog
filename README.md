@@ -10,12 +10,6 @@ Read this [guide to get started] (https://prismic.io/docs/sample-blog#?lang=node
 
 An easy way to deploy your Node.js blog is to use [Heroku](http://www.heroku.com). Just follow these few simple steps once you have successfully [signed up](https://id.heroku.com/signup/www-header) and [installed the Heroku toolbelt](https://toolbelt.heroku.com/):
 
-Create a `Procfile` file at your application root, to declare the server command:
-
-```
-web: node app.js
-```
-
 Create a new Heroku application
 
 ```
