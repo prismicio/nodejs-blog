@@ -22,5 +22,7 @@ function getDate(post) {
         var formatedDate = month_names_short[date.getUTCMonth()] + ', ' +
             date.getUTCDate() + suffix + ' ' + date.getUTCFullYear();
         return formatedDate;
-    } else '';
+    } else {
+        return '';
+    }
 }
