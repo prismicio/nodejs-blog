@@ -32,6 +32,7 @@ exports.post = function(req, res) {
 
   var p = Prismic.withContext(req, res);
   p.getByUID('post', uid, function then(err, post) {
+    if (err) { configuration.onPrismicError(err, req, res); return; }
     if (post) {
       res.render('post', {
         'post': post
