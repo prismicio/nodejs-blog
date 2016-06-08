@@ -12,11 +12,11 @@ exports.bloghome = function(req, res) {
         'page' : page,
         'orderings' :'[my.post.date desc]'
       };
-      p.query('[[:d = at(document.type, "post")]]', options, function (err, response) {
-        if (err) { configuration.onPrismicError(err, req, response); return; }
+      p.query('[[:d = at(document.type, "post")]]', options, function (err, posts) {
+        if (err) { configuration.onPrismicError(err, req, res); return; }
         res.render('bloghome', {
           'bloghome' : bloghome,
-          'posts' : response.results
+          'posts' : posts.results
         });
       });
     } else {
