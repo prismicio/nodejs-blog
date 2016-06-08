@@ -14,7 +14,7 @@ block body
                     != post.getText('post.title') || 'Untitled'
 
             - var sliceZone = post.getSliceZone('post.body') || {}
-            for slice in sliceZone.slices
+            for slice in (sliceZone.slices || [])
                 //- Render the right markup for a given slice type.
                 case slice.sliceType
                     when 'text'
