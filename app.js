@@ -26,7 +26,7 @@ prismic.init(configuration);
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(favicon("public/images/punch.png"));
 app.use(logger('dev'));
 app.use(bodyParser());
