@@ -1,0 +1,109 @@
+[{
+  "id": "bloghome",
+  "name": "Blog Home",
+  "repeatable": false,
+  "value": {
+    "Main" : {
+      "headline" : {
+        "type" : "StructuredText",
+        "config" : {
+          "placeholder" : "Main title...",
+          "single" : "heading1"
+        }
+      },
+      "description" : {
+        "type" : "StructuredText",
+        "config" : {
+          "placeholder" : "Sub-title",
+          "single" : "heading2"
+        }
+      },
+      "image" : {
+        "type" : "Image"
+      }
+    }
+  }
+}, {
+  "id": "post",
+  "name": "Post",
+  "repeatable": true,
+  "value": {
+    "Blog Post" : {
+      "uid" : {
+        "type" : "UID",
+        "config" : {
+          "placeholder" : "unique-identifier-for-blog-post-url"
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title"
+        }
+      },
+      "date" : {
+        "fieldset" : "Post properties",
+        "type" : "Date",
+        "config" : {
+          "label" : "Post date"
+        }
+      },
+      "body" : {
+        "fieldset" : "Post content",
+        "type" : "Slices",
+        "config" : {
+          "labels" : {
+            "image-with-caption" : [ {
+              "name" : "emphasized",
+              "display" : "Emphasized"
+            }, {
+              "name" : "image-full-width",
+              "display" : "Full"
+            } ]
+          },
+          "choices" : {
+            "text" : {
+              "type" : "StructuredText",
+              "fieldset" : "Text",
+              "config" : {
+                "multi" : "paragraph, heading2, heading3, strong, em, hyperlink, ulist, list-item",
+                "placeholder" : "Post text..."
+              }
+            },
+            "quote" : {
+              "type" : "StructuredText",
+              "fieldset" : "Quote",
+              "config" : {
+                "placeholder" : "Post quote...",
+                "single" : "paragraph"
+              }
+            },
+            "image-with-caption" : {
+              "type" : "Group",
+              "fieldset" : "Post image and caption",
+              "config" : {
+                "fields" : {
+                  "illustration" : {
+                    "type" : "Image",
+                    "config" : {
+                      "constraint" : {
+                        "width" : 640
+                      }
+                    }
+                  },
+                  "caption" : {
+                    "type" : "StructuredText",
+                    "config" : {
+                      "single" : "heading3",
+                      "placeholder" : "Image caption..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}]
