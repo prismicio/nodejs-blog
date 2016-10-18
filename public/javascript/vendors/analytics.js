@@ -77,7 +77,7 @@ prismic.analytics = function() {
       ga('set', 'dimension1', data.userId);
       ga('send', 'pageview');
 
-      var category = "tutorial-quickstart";
+      var category = "example-blog";
       runEvent(category);
       doneEvent(category);
     });
