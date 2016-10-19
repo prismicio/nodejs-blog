@@ -1,0 +1,11 @@
+[{
+  "id": "bloghome",
+  "name": "Blog Home",
+  "repeatable": false,
+  "value": "bloghome.json"
+}, {
+  "id": "post",
+  "name": "Post",
+  "repeatable": true,
+  "value": "post.json"
+}]
