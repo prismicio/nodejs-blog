@@ -1,9 +1,13 @@
-exports.Configuration = {
+module.exports = {
 
-  apiEndpoint: 'https://your-repo-name.prismic.io/api',
+  apiEndpoint: 'https://levi-sample-blog.prismic.io/api',
 
   // -- Access token if the Master is not open
   // accessToken: 'xxxxxx',
+
+  // OAuth
+  // clientId: 'xxxxxx',
+  // clientSecret: 'xxxxxx',
 
   // -- Links resolution rules
   // This function will be used to generate links to Prismic.io documents
@@ -15,12 +19,10 @@ exports.Configuration = {
     if (doc.type == 'post') {
       return '/blog/' + encodeURIComponent(doc.uid);
     }
-
     return '/';
   },
   onPrismicError: function(err, req, res) {
     res.status(500)
       .send("Error 500: " + err.message);
   }
-
 };

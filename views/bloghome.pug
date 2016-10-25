@@ -1,32 +1,34 @@
 extends ./layout.pug
 
 block title
-    title !{bloghome.getText("bloghome.headline")}
+  title !{bloghome.getText("bloghome.headline")}
 
 block body
-    body.page
-        - var image = bloghome.getImage('bloghome.image')
-        - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
-        - var illustrationUrl = maybeBloghomeImageUrl || ''
+  body.page
+    - var image = bloghome.getImage('bloghome.image')
+    - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
+    - var illustrationUrl = maybeBloghomeImageUrl || ''
 
-        div.home
-            div.blog-avatar(style='background-image: url(' + illustrationUrl + ');')
-            h1.blog-title !{bloghome.getText('bloghome.headline')}
-            p.blog-description !{bloghome.getText('bloghome.description')}
-        div.blog-main
-            for post in posts
-                div.blog-post(data-wio-id=post.id)
-                    h2
-                        a(href=ctx.linkResolver(post))
-                            != post.getText('post.title') || 'Untitled'
-                    p.blog-post-meta
-                        span.created-at !{general.getDate(post)}
-                    //- display first valid slice text and limit it respecting the end of words.
-                    - var firstParagraph = post.getFirstParagraph()
-                    - var firstParagraphInPost = firstParagraph ? firstParagraph.text : ''
-                    - var textLimit = 300
-                    - var limitedText = firstParagraphInPost.substr(0, textLimit)
-                    if firstParagraphInPost.length > textLimit
-                        = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
-                    else
-                        = firstParagraphInPost
+    div.home
+      div.blog-avatar(style='background-image: url(' + illustrationUrl + ');')
+      h1.blog-title !{bloghome.getText('bloghome.headline')}
+      p.blog-description !{bloghome.getText('bloghome.description')}
+    div.blog-main
+      for post in posts
+        div.blog-post(data-wio-id=post.id)
+          h2
+            a(href=ctx.linkResolver(post))
+              != post.getText('post.title') || 'Untitled'
+          p.blog-post-meta
+            - var date = post.getDate("post.date");
+            - var displayDate = date ? date.toLocaleDateString("en-us", {month: "short", day:"numeric", year:"numeric"}) : ""
+            span.created-at !{displayDate}
+          //- display first valid slice text and limit it respecting the end of words.
+          - var firstParagraph = post.getFirstParagraph()
+          - var firstParagraphInPost = firstParagraph ? firstParagraph.text : ''
+          - var textLimit = 300
+          - var limitedText = firstParagraphInPost.substr(0, textLimit)
+          if firstParagraphInPost.length > textLimit
+            = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
+          else
+            = firstParagraphInPost

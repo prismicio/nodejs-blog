@@ -1,21 +1,34 @@
-var Prismic = require('express-prismic').Prismic,
-    configuration = require('./prismic-configuration').Configuration;
+var prismic = require('prismic-nodejs');
+var configuration = require('./prismic-configuration');
+
+// Returns a Promise
+function api(req, res) {
+  // So we can use this information in the views
+  res.locals.ctx = {
+    endpoint: configuration.apiEndpoint,
+    linkResolver: configuration.linkResolver
+  };
+  return prismic.api(configuration.apiEndpoint, {
+    accessToken: configuration.accessToken,
+    req: req
+  });
+}
 
 exports.bloghome = function(req, res) {
-
-  var p = Prismic.withContext(req, res);
-  p.queryFirst('[[:d = at(document.type, "bloghome")]]', function (err, bloghome) {
-    if (err) { configuration.onPrismicError(err, req, res); return; }
-    if (bloghome) {
+  api(req, res).then(function(api) {
+    return api.query(prismic.Predicates.at("document.type", "bloghome"));
+  }).then(function(bloghome) {
+    if(bloghome.results[0]) {
       var page = currentPage(req);
       var options = {
         'page' : page,
         'orderings' :'[my.post.date desc]'
       };
-      p.query('[[:d = at(document.type, "post")]]', options, function (err, response) {
-        if (err) { configuration.onPrismicError(err, req, response); return; }
+      api(req, res).then(function(api) {
+        return api.query(prismic.Predicates.at("document.type", "post"), options);
+      }).then(function(response) {
         res.render('bloghome', {
-          'bloghome' : bloghome,
+          'bloghome' : bloghome.results[0],
           'posts' : response.results
         });
       });
@@ -23,16 +36,17 @@ exports.bloghome = function(req, res) {
       res.status(404)
         .send('Not found');
     }
+  }).catch(function(err) {
+    handleError(err, req, res);
   });
 };
 
 exports.post = function(req, res) {
-
   var uid = req.params.uid;
-
-  var p = Prismic.withContext(req, res);
-  p.getByUID('post', uid, function then(err, post) {
-    if (post) {
+  api(req, res).then(function(api) {
+    return api.getByUID('post', uid);
+  }).then(function(post) {
+    if(post) {
       res.render('post', {
         'post': post
       });
@@ -40,6 +54,8 @@ exports.post = function(req, res) {
       res.status(404)
         .send('Not found');
     }
+  }).catch(function(err) {
+    handleError(err, req, res);
   });
 };
 
