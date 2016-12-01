@@ -20,9 +20,5 @@ module.exports = {
       return '/blog/' + encodeURIComponent(doc.uid);
     }
     return '/';
-  },
-  onPrismicError: function(err, req, res) {
-    res.status(500)
-      .send("Error 500: " + err.message);
   }
 };
