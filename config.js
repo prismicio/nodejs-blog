@@ -2,14 +2,13 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
-    favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    errorHandler = require('errorhandler'),
-    http = require('http'),
-    path = require('path');
+var express = require('express');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var errorHandler = require('errorhandler');
+var path = require('path');
 
 module.exports = function() {
   var app = express();

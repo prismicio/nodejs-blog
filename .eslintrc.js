@@ -8,7 +8,8 @@ module.exports = {
     "no-console": 0
   },
   "env": {
-    "node": true
+    "node": true,
+    "es6": true
   },
   "extends": "eslint:recommended"
 };
