@@ -1,6 +1,6 @@
 ## Sample Blog with API-based CMS
 
-Node.js blog is a blog template with content managed into prismic.io (API-based CMS).
+Node.js blog is a blog template with content managed in prismic.io (an API-based CMS).
 
 #### Getting started
 
@@ -16,9 +16,18 @@ Create a new Heroku application
 $ heroku create
 ```
 
-Push your code to heroku:
+Initialize a new Git repository:
 
 ```
+$ git init
+$ heroku git:remote -a your-heroku-app-name
+```
+
+Commit your code to the Git repository and deploy it to Heroku:
+
+```
+$ git add .
+$ git commit -am "make it better"
 $ git push heroku master
 ```
 

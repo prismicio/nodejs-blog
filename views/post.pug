@@ -1,50 +1,49 @@
 extends ./layout.pug
 
 block title
-    title !{post.getText('post.title')}
+  title !{post.getText('post.title')}
 block body
-    body
-        div.main
+  body
+    div.main
 
-            div.outer-container
-                div.back
-                    a(href='./') back to list
+      div.outer-container
+        div.back
+          a(href='./') back to list
 
-                h1(data-wio-id=post.id)
-                    != post.getText('post.title') || 'Untitled'
+        h1(data-wio-id=post.id)
+          != post.getText('post.title') || 'Untitled'
 
-            - var sliceZone = post.getSliceZone('post.body') || {}
-            for slice in sliceZone.slices
-                //- Render the right markup for a given slice type.
-                case slice.sliceType
-                    when 'text'
-                        div.post-part.single.container
-                            div !{slice.value.asHtml()}
-                    when 'quote'
-                        div.post-part.single.container
-                            span.block-quotation !{slice.value.asText()}
-                    when 'image-with-caption'
-                        - var imageWithCaption = slice.value.toArray()[0]
-                        - var imageUrl = imageWithCaption.getImage('illustration') ? imageWithCaption.getImage('illustration').url : ''
-                        - var caption = imageWithCaption.get('caption')
-                        case slice.label
-                            when 'image-full-width'
-                                div.blog-header.single(style='background-image: url(' + imageUrl + ');')
-                                    div.wrapper
-                                        if caption
-                                            h1 !{caption.asText()}
-                            when 'emphasized'
-                                div.post-part.single.container
-                                    p.block-img.emphasized
-                                        img(src=imageUrl)
-                                    if caption
-                                        p
-                                            span.image-label !{caption.asText()}
-
-                            default
-                                div.post-part.single.container
-                                    p.block-img
-                                        img(src=imageUrl)
-                                    if caption
-                                        p
-                                            span.image-label !{caption.asText()}
+      - var sliceZone = post.getSliceZone('post.body') || {}
+      for slice in sliceZone.slices
+        //- Render the right markup for a given slice type.
+        case slice.sliceType
+          when 'text'
+            div.post-part.single.container
+              div !{slice.value.asHtml()}
+          when 'quote'
+            div.post-part.single.container
+              span.block-quotation !{slice.value.asText()}
+          when 'image-with-caption'
+            - var imageWithCaption = slice.value.toArray()[0]
+            - var imageUrl = imageWithCaption.getImage('illustration') ? imageWithCaption.getImage('illustration').url : ''
+            - var caption = imageWithCaption.get('caption')
+            case slice.label
+              when 'image-full-width'
+                div.blog-header.single(style='background-image: url(' + imageUrl + ');')
+                  div.wrapper
+                    if caption
+                      h1 !{caption.asText()}
+              when 'emphasized'
+                div.post-part.single.container
+                  p.block-img.emphasized
+                    img(src=imageUrl)
+                  if caption
+                    p
+                      span.image-label !{caption.asText()}
+              default
+                div.post-part.single.container
+                  p.block-img
+                    img(src=imageUrl)
+                  if caption
+                    p
+                      span.image-label !{caption.asText()}
