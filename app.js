@@ -18,21 +18,13 @@ app.listen(PORT, function() {
 * Middleware to connect to the prismic.io API
 */
 app.use((req, res, next) => {
-  prismic.api(configuration.apiEndpoint, {accessToken: configuration.accessToken, req})
-    .then(api => {
-      req.prismic = {api};
-      res.locals.ctx = {
-        endpoint: configuration.apiEndpoint,
-        linkResolver: configuration.linkResolver
-      };
-      next();
-    }).catch(err => {
-      if (err.status === 404) {
-        res.status(404).send("There was a problem connecting to your API, please check your configuration file for errors.");
-      } else {
-        res.status(500).send("Error 500: " + err.message);
-      }
-    });
+  prismic.getAPI(configuration, req, res).then(next).catch(err => {
+    if (err.status === 404) {
+      res.status(404).send("There was a problem connecting to your API, please check your configuration file for errors.");
+    } else {
+      res.status(500).send("Error 500: " + err.message);
+    }
+  });
 });
 
 
