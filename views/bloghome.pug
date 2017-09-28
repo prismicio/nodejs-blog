@@ -16,11 +16,10 @@ block body
             a(href=ctx.linkResolver(post))
               != PrismicDOM.RichText.asText(post.data.title) 
           p.blog-post-meta
-            - var date = post.data.date
-            - var displayDate = date ? new Date(date).toLocaleDateString("en-us", {month: "short", day:"numeric", year:"numeric"}) : ""
-            span.created-at !{displayDate}
+            - var date = general.getDate(post)
+            span.created-at !{date}
           //- display first valid slice text and limit it respecting the end of words.
-          - var firstParagraph = getFirstParagraph(post)
+          - var firstParagraph = general.getFirstParagraph(post)
           - var textLimit = 300
           - var limitedText = firstParagraph.substr(0, textLimit)
           if firstParagraph.length > textLimit

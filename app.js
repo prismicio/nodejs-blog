@@ -9,33 +9,11 @@ const app = require('./config');
 const Cookies = require('cookies');
 const PrismicConfig = require('./prismic-configuration');
 const PORT = app.get('port');
+const General = require('./includes/general');
 
 app.listen(PORT, () => {
   process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
 });
-
-// Function to get the first paragraph of a post
-function getFirstParagraph(post) {
-  var slices = post.data.body;
-  var firstParagraph = "";
-  var haveFirstParagraph = false;
-  
-  slices.forEach(function(slice) {
-    if (!haveFirstParagraph) {
-      if (slice.slice_type == "text") {
-        slice.primary.text.forEach(function(block){
-          if (block.type == "paragraph") {
-            if (!haveFirstParagraph) {
-              firstParagraph += block.text;
-              haveFirstParagraph = true;
-            }
-          }
-        });
-      }
-    }
-  });
-  return firstParagraph;
-}
 
 // Middleware to connect to inject prismic context
 app.use((req, res, next) => {
@@ -43,8 +21,14 @@ app.use((req, res, next) => {
     endpoint: PrismicConfig.apiEndpoint,
     linkResolver: PrismicConfig.linkResolver,
   };
-  // Add PrismicDOM in locals to access them in templates.
+  
+  // Add general style functions to access them in templates
+  res.locals.general = General;
+  
+  // Add PrismicDOM in locals to access them in templates
   res.locals.PrismicDOM = PrismicDOM;
+  
+  // Add the prismic.io API to the req
   Prismic.api(PrismicConfig.apiEndpoint, {
     accessToken: PrismicConfig.accessToken,
     req,
@@ -111,8 +95,7 @@ app.get(['/', '/blog'], (req, res) =>
         // Render the blog homepage
         res.render('bloghome', {
           'bloghome' : bloghome,
-          'posts' : response.results,
-          'getFirstParagraph' : getFirstParagraph
+          'posts' : response.results
         });
       });
 
