@@ -1,76 +1,103 @@
 {
-  "Blog Post" : {
-    "uid" : {
-      "type" : "UID",
-      "config" : {
-        "placeholder" : "unique-identifier-for-blog-post-url"
+  "Blog Post": {
+    "uid": {
+      "type": "UID",
+      "config": {
+        "label": "UID",
+        "placeholder": "unique-identifier-for-blog-post-url"
       }
     },
     "title": {
-      "type": "Text",
+      "type": "StructuredText",
       "config": {
-        "label": "Title"
+        "single": "heading1",
+        "label": "Title",
+        "placeholder": "Blog Post Title..."
       }
     },
-    "date" : {
-      "fieldset" : "Post properties",
-      "type" : "Date",
-      "config" : {
-        "label" : "Post date"
+    "date": {
+      "type": "Date",
+      "config": {
+        "label": "Date"
       }
     },
-    "body" : {
-      "fieldset" : "Post content",
-      "type" : "Slices",
-      "config" : {
-        "labels" : {
-          "image-with-caption" : [ {
-            "name" : "emphasized",
-            "display" : "Emphasized"
-          }, {
-            "name" : "image-full-width",
-            "display" : "Full"
-          } ]
+    "body": {
+      "type": "Slices",
+      "fieldset": "Slice zone",
+      "config": {
+        "labels": {
+          "image_with_caption": [
+            {
+              "name": "emphasized",
+              "display": "Emphasized"
+            },
+            {
+              "name": "image-full-width",
+              "display": "Full"
+            }
+          ]
         },
-        "choices" : {
-          "text" : {
-            "type" : "StructuredText",
-            "fieldset" : "Text",
-            "config" : {
-              "multi" : "paragraph, heading2, heading3, strong, em, hyperlink, ulist, list-item",
-              "placeholder" : "Post text..."
-            }
-          },
-          "quote" : {
-            "type" : "StructuredText",
-            "fieldset" : "Quote",
-            "config" : {
-              "placeholder" : "Post quote...",
-              "single" : "paragraph"
-            }
-          },
-          "image-with-caption" : {
-            "type" : "Group",
-            "fieldset" : "Post image and caption",
-            "config" : {
-              "fields" : {
-                "illustration" : {
-                  "type" : "Image",
-                  "config" : {
-                    "constraint" : {
-                      "width" : 640
-                    }
-                  }
-                },
-                "caption" : {
-                  "type" : "StructuredText",
-                  "config" : {
-                    "single" : "heading3",
-                    "placeholder" : "Image caption..."
-                  }
+        "choices": {
+          "text": {
+            "type": "Slice",
+            "fieldset": "Text",
+            "description": "A rich text section",
+            "icon": "text_fields",
+            "non-repeat": {
+              "text": {
+                "type": "StructuredText",
+                "config": {
+                  "multi": "paragraph, preformatted, heading2, heading3, strong, em, hyperlink, embed, list-item, o-list-item",
+                  "label": "Text",
+                  "placeholder": "Post text..."
                 }
               }
-            }
+            },
+            "repeat": {}
+          },
+          "quote": {
+            "type": "Slice",
+            "fieldset": "Quote",
+            "description": "A quote section",
+            "icon": "format_quote",
+            "non-repeat": {
+              "quote": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "paragraph",
+                  "label": "Quote",
+                  "placeholder": "Post Quote..."
+                }
+              }
+            },
+            "repeat": {}
+          },
+          "image_with_caption": {
+            "type": "Slice",
+            "fieldset": "Image with Caption",
+            "description": "An image with an optional caption",
+            "icon": "image",
+            "non-repeat": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "constraint": {
+                    "width": 1200
+                  },
+                  "thumbnails": [],
+                  "label": "Image"
+                }
+              },
+              "caption": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "heading3",
+                  "label": "Caption",
+                  "placeholder": "Image Caption..."
+                }
+              }
+            },
+            "repeat": {}
           }
         }
       }

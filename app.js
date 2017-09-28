@@ -1,47 +1,89 @@
+"use strict";
 
 /**
  * Module dependencies.
  */
-var prismic = require('prismic-nodejs');
-var app = require('./config');
-var configuration = require('./prismic-configuration');
-var PORT = app.get('port');
+const Prismic = require('prismic-javascript');
+const PrismicDOM = require('prismic-dom');
+const app = require('./config');
+const Cookies = require('cookies');
+const PrismicConfig = require('./prismic-configuration');
+const PORT = app.get('port');
 
-/**
-* Start the server
-*/
-app.listen(PORT, function() {
-  console.log('Point your browser to http://localhost:' + PORT);
+app.listen(PORT, () => {
+  process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
 });
 
-/**
-* Middleware to connect to the prismic.io API
-*/
-app.use((req, res, next) => {
-  prismic.api(configuration.apiEndpoint, {accessToken: configuration.accessToken, req})
-    .then(api => {
-      req.prismic = {api};
-      res.locals.ctx = {
-        endpoint: configuration.apiEndpoint,
-        linkResolver: configuration.linkResolver
-      };
-      next();
-    }).catch(err => {
-      if (err.status === 404) {
-        res.status(404).send("There was a problem connecting to your API, please check your configuration file for errors.");
-      } else {
-        res.status(500).send("Error 500: " + err.message);
+// Function to get the first paragraph of a post
+function getFirstParagraph(post) {
+  var slices = post.data.body;
+  var firstParagraph = "";
+  var haveFirstParagraph = false;
+  
+  slices.forEach(function(slice) {
+    if (!haveFirstParagraph) {
+      if (slice.slice_type == "text") {
+        slice.primary.text.forEach(function(block){
+          if (block.type == "paragraph") {
+            if (!haveFirstParagraph) {
+              firstParagraph += block.text;
+              haveFirstParagraph = true;
+            }
+          }
+        });
       }
-    });
+    }
+  });
+  return firstParagraph;
+}
+
+// Middleware to connect to inject prismic context
+app.use((req, res, next) => {
+  res.locals.ctx = {
+    endpoint: PrismicConfig.apiEndpoint,
+    linkResolver: PrismicConfig.linkResolver,
+  };
+  // Add PrismicDOM in locals to access them in templates.
+  res.locals.PrismicDOM = PrismicDOM;
+  Prismic.api(PrismicConfig.apiEndpoint, {
+    accessToken: PrismicConfig.accessToken,
+    req,
+  }).then((api) => {
+    req.prismic = { api };
+    next();
+  }).catch((error) => {
+    next(error.message);
+  });
 });
 
+// Return the current page of request
+function currentPage(request) {
+  return request.params.p || '1';
+}
+
+
+/*
+ * -------------- Routes --------------
+ */
 
 /**
 * Preconfigured prismic preview
 */
-app.get('/preview', (req, res) =>
-  prismic.preview(req.prismic.api, configuration.linkResolver, req, res)
-);
+app.get('/preview', (req, res) => {
+  const token = req.query.token;
+  if (token) {
+    req.prismic.api.previewSession(token, PrismicConfig.linkResolver, '/')
+    .then((url) => {
+      const cookies = new Cookies(req, res);
+      cookies.set(Prismic.previewCookie, token, { maxAge: 30 * 60 * 1000, path: '/', httpOnly: false });
+      res.redirect(302, url);
+    }).catch((err) => {
+      res.status(500).send(`Error 500 in preview: ${err.message}`);
+    });
+  } else {
+    res.send(400, 'Missing token from querystring');
+  }
+});
 
 
 /**
@@ -50,8 +92,8 @@ app.get('/preview', (req, res) =>
 app.get(['/', '/blog'], (req, res) =>
 
   // Query the homepage
-  req.prismic.api.getSingle("bloghome").then(bloghome => {
-
+  req.prismic.api.getSingle("blog_home").then(function(bloghome) {
+    
     // If a document is returned...
     if(bloghome) {
 
@@ -61,15 +103,16 @@ app.get(['/', '/blog'], (req, res) =>
       };
 
       // Query the posts
-      return req.prismic.api.query(
-        prismic.Predicates.at("document.type", "post"),
+      req.prismic.api.query(
+        Prismic.Predicates.at("document.type", "post"),
         queryOptions
       ).then(function(response) {
-
+        
         // Render the blog homepage
         res.render('bloghome', {
-          bloghome,
-          posts: response.results
+          'bloghome' : bloghome,
+          'posts' : response.results,
+          'getFirstParagraph' : getFirstParagraph
         });
       });
 
@@ -94,9 +137,10 @@ app.get('/blog/:uid', (req, res) => {
 
     if(post) {
       // If a document is returned, render the post
-      res.render('post', {post: post});
+      res.render('post', { 'post': post });
+      
+    // Else give an error
     } else {
-      // Else give an error
       res.status(404).send('Not found');
     }
   });

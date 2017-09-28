@@ -3,19 +3,29 @@
     "headline" : {
       "type" : "StructuredText",
       "config" : {
-        "placeholder" : "Main title...",
-        "single" : "heading1"
+        "single" : "heading1",
+        "label" : "Headline",
+        "placeholder" : "Main title..."
       }
     },
     "description" : {
       "type" : "StructuredText",
       "config" : {
-        "placeholder" : "Sub-title",
-        "single" : "heading2"
+        "multi" : "heading2",
+        "label" : "Description",
+        "placeholder" : "Sub-title..."
       }
     },
     "image" : {
-      "type" : "Image"
+      "type" : "Image",
+      "config" : {
+        "constraint" : {
+          "width" : 140,
+          "height" : 140
+        },
+        "thumbnails" : [ ],
+        "label" : "Image"
+      }
     }
   }
 }

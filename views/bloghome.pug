@@ -1,34 +1,29 @@
 extends ./layout.pug
 
 block title
-  title !{bloghome.getText("bloghome.headline")}
+  title !{PrismicDOM.RichText.asText(bloghome.data.headline)}
 
 block body
   body.page
-    - var image = bloghome.getImage('bloghome.image')
-    - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
-    - var illustrationUrl = maybeBloghomeImageUrl || ''
-
     div.home
-      div.blog-avatar(style='background-image: url(' + illustrationUrl + ');')
-      h1.blog-title !{bloghome.getText('bloghome.headline')}
-      p.blog-description !{bloghome.getText('bloghome.description')}
+      div.blog-avatar(style='background-image: url(' + bloghome.data.image.url + ');')
+      h1.blog-title !{PrismicDOM.RichText.asText(bloghome.data.headline)}
+      p.blog-description !{PrismicDOM.RichText.asText(bloghome.data.description)}
     div.blog-main
       for post in posts
         div.blog-post(data-wio-id=post.id)
           h2
             a(href=ctx.linkResolver(post))
-              != post.getText('post.title') || 'Untitled'
+              != PrismicDOM.RichText.asText(post.data.title) 
           p.blog-post-meta
-            - var date = post.getDate("post.date");
-            - var displayDate = date ? date.toLocaleDateString("en-us", {month: "short", day:"numeric", year:"numeric"}) : ""
+            - var date = post.data.date
+            - var displayDate = date ? new Date(date).toLocaleDateString("en-us", {month: "short", day:"numeric", year:"numeric"}) : ""
             span.created-at !{displayDate}
           //- display first valid slice text and limit it respecting the end of words.
-          - var firstParagraph = post.getFirstParagraph()
-          - var firstParagraphInPost = firstParagraph ? firstParagraph.text : ''
+          - var firstParagraph = getFirstParagraph(post)
           - var textLimit = 300
-          - var limitedText = firstParagraphInPost.substr(0, textLimit)
-          if firstParagraphInPost.length > textLimit
+          - var limitedText = firstParagraph.substr(0, textLimit)
+          if firstParagraph.length > textLimit
             = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
           else
-            = firstParagraphInPost
+            = firstParagraph

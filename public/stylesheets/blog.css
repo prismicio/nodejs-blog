@@ -53,7 +53,7 @@
   opacity: 0.7;
 }
 .blog-header.single, .blog-header.home {
-  height: 100vh;
+  height: 400px;
 }
 
 /* Blog header for single blog post. */

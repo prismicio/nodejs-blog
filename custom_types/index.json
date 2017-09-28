@@ -1,5 +1,5 @@
 [{
-  "id": "bloghome",
+  "id": "blog_home",
   "name": "Blog Home",
   "repeatable": false,
   "value": "bloghome.json"
