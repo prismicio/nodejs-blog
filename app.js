@@ -9,7 +9,7 @@ const app = require('./config');
 const Cookies = require('cookies');
 const PrismicConfig = require('./prismic-configuration');
 const PORT = app.get('port');
-const General = require('./includes/general');
+const UIhelpers = require('./includes/UIhelpers');
 
 app.listen(PORT, () => {
   process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
@@ -22,8 +22,8 @@ app.use((req, res, next) => {
     linkResolver: PrismicConfig.linkResolver,
   };
   
-  // Add general style functions to access them in templates
-  res.locals.general = General;
+  // Add UI helpers to access them in templates
+  res.locals.UIhelpers = UIhelpers;
   
   // Add PrismicDOM in locals to access them in templates
   res.locals.PrismicDOM = PrismicDOM;

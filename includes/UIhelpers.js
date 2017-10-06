@@ -1,4 +1,4 @@
-var month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Function to Style the date
 function getDate(post) {
@@ -29,9 +29,9 @@ function getDate(post) {
 
 // Function to get the first paragraph of a post
 function getFirstParagraph(post) {
-  var slices = post.data.body;
-  var firstParagraph = "";
-  var haveFirstParagraph = false;
+  const slices = post.data.body;
+  let firstParagraph = '';
+  let haveFirstParagraph = false;
   
   slices.forEach(function(slice) {
     if (!haveFirstParagraph) {
@@ -51,6 +51,6 @@ function getFirstParagraph(post) {
 }
 
 module.exports = {
-  getDate: getDate,
-  getFirstParagraph: getFirstParagraph,
-}
+  getDate,
+  getFirstParagraph,
+};
