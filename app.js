@@ -40,12 +40,6 @@ app.use((req, res, next) => {
   });
 });
 
-// Return the current page of request
-function currentPage(request) {
-  return request.params.p || '1';
-}
-
-
 /*
  * -------------- Routes --------------
  */
@@ -56,8 +50,7 @@ function currentPage(request) {
 app.get('/preview', (req, res) => {
   const token = req.query.token;
   if (token) {
-    req.prismic.api.previewSession(token, PrismicConfig.linkResolver, '/')
-    .then((url) => {
+    req.prismic.api.previewSession(token, PrismicConfig.linkResolver, '/').then((url) => {
       const cookies = new Cookies(req, res);
       cookies.set(Prismic.previewCookie, token, { maxAge: 30 * 60 * 1000, path: '/', httpOnly: false });
       res.redirect(302, url);
@@ -76,10 +69,10 @@ app.get('/preview', (req, res) => {
 app.get(['/', '/blog'], (req, res) =>
 
   // Query the homepage
-  req.prismic.api.getSingle("blog_home").then(function(bloghome) {
+  req.prismic.api.getSingle("blog_home").then((bloghome) => {
     
     // If a document is returned...
-    if(bloghome) {
+    if (bloghome) {
 
       var queryOptions = {
         page: req.params.p || '1',
@@ -94,8 +87,8 @@ app.get(['/', '/blog'], (req, res) =>
         
         // Render the blog homepage
         res.render('bloghome', {
-          'bloghome' : bloghome,
-          'posts' : response.results
+          bloghome,
+          posts : response.results
         });
       });
 
@@ -113,14 +106,14 @@ app.get(['/', '/blog'], (req, res) =>
 app.get('/blog/:uid', (req, res) => {
 
   // Define the uid from the url
-  var uid = req.params.uid;
+  const uid = req.params.uid;
 
   // Query the post by its uid
   req.prismic.api.getByUID('post', uid).then(post => {
 
-    if(post) {
+    if (post) {
       // If a document is returned, render the post
-      res.render('post', { 'post': post });
+      res.render('post', { post });
       
     // Else give an error
     } else {
