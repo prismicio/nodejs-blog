@@ -90,8 +90,8 @@ app.get(['/', '/blog'], (req, res) =>
       });
 
     } else {
-      // If a bloghome document is not returned, give an error
-      res.status(404).send('Not found');
+      // If a bloghome document is not returned, display the 404 page
+      res.status(404).render('404');
     }
   })
 );
@@ -112,9 +112,9 @@ app.get('/blog/:uid', (req, res) => {
       // If a document is returned, render the post
       res.render('post', { post });
       
-    // Else give an error
+    // Else display the 404 page
     } else {
-      res.status(404).send('Not found');
+      res.status(404).render('404');
     }
   });
 });
