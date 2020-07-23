@@ -187,6 +187,38 @@ footer a {
   margin-top: 10px;
 }
 
+/* Error handler & 404 pages */
+.error-container {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 230px;
+  margin-bottom: 449px;
+}
+.error-container h3 {
+  text-align: center;
+  font-size: 60px;
+}
+.error-container h2,
+.error-container h6 {
+  font-size: 20px;
+  text-align: center;
+}
+.back-btn {
+  text-align: center;
+}
+.error-container button {
+  padding: 20px 30px;
+  margin-top: 20px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+.error-container nav ul {
+  list-style: circle;
+}
+.error-container nav ul li {
+  margin-bottom: 20px;
+}
+
 /* Media Queries */
 @media (max-width: 767px) {
   .home, .blog-main, .container, footer {
@@ -276,5 +308,8 @@ footer a {
   }
   .main .post-part.single .image-full-width {
     width: 530px;
+  }
+  .error-container {
+    padding: 23px 58px;
   }
 }
