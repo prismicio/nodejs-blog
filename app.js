@@ -9,6 +9,7 @@ const app = require('./config');
 const PrismicConfig = require('./prismic-configuration');
 const PORT = app.get('port');
 const UIhelpers = require('./includes/UIhelpers');
+const asyncHandler = require ("./utils/async-handler");
 
 app.listen(PORT, () => {
   process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
@@ -46,18 +47,21 @@ app.use((req, res, next) => {
 /**
 * Preconfigured prismic preview
 */
-app.get('/preview', (req, res) => {
-  const token = req.query.token;
-  if (token) {
-    req.prismic.api.previewSession(token, PrismicConfig.linkResolver, '/').then((url) => {
-      res.redirect(302, url);
-    }).catch((err) => {
-      res.status(500).send(`Error 500 in preview: ${err.message}`);
-    });
-  } else {
+ // Prismic preview route
+ app.get('/preview', asyncHandler(async (req, res, next) => {
+  const { token, documentId } = req.query;
+  if(token){
+    try{
+      const redirectUrl = (await req.prismic.api.getPreviewResolver(token, documentId).resolve(PrismicConfig.linkResolver, '/'));
+      res.redirect(302, redirectUrl);
+    }catch(e){
+      res.status(500).send(`Error 500 in preview`);
+    }
+  }else{
     res.send(400, 'Missing token from querystring');
   }
-});
+  next();
+}))
 
 
 /**
@@ -91,7 +95,7 @@ app.get(['/', '/blog'], (req, res) =>
 
     } else {
       // If a bloghome document is not returned, display the 404 page
-      res.status(404).render('404');
+      res.status(404).render("./error_handlers/404");
     }
   })
 );
@@ -114,7 +118,7 @@ app.get('/blog/:uid', (req, res) => {
       
     // Else display the 404 page
     } else {
-      res.status(404).render('404');
+      res.status(404).render("./error_handlers/404");
     }
   });
 });
