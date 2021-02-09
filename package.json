@@ -1,7 +1,7 @@
 {
-  "name": "javascript-nodejs-starter",
-  "version": "2.0.0",
-  "private": true,
+  "name": "nodejs-blog",
+  "description": "Sample blog built with Node.js using Prismic headless CMS",
+  "author": "Prismic",
   "scripts": {
     "start": "node app.js"
   },
@@ -19,6 +19,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/prismicio/javascript-nodejs-starter.git"
+    "url": "https://github.com/prismicio/nodejs-blog"
   }
 }
