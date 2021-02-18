@@ -1,6 +1,6 @@
 # Prismic & Node.js Example Blog
 
-[Node.js](https://www.php.net/) example blog project with content managed in [Prismic](https://prismic.io/)
+[Node.js](https://nodejs.org/en/) example blog project with content managed in [Prismic](https://prismic.io/)
 
 ## Check out the dedicated article to get this project up and running
 [Prismic project guide](https://user-guides.prismic.io/en/articles/868734-sample-blog-with-api-based-cms-in-node-js)
