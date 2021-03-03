@@ -14,7 +14,7 @@
     "method-override": "~2.3.10",
     "morgan": "~1.9.0",
     "prismic-dom": "^2.2.4",
-    "pug": "^2.0.0-alpha6",
+    "pug": "^3.0.1",
     "serve-favicon": "~2.4.5"
   },
   "repository": {
