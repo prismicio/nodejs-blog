@@ -2,16 +2,19 @@
 /**
  * Module dependencies.
  */
-var express = require('express');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var errorHandler = require('errorhandler');
-var path = require('path');
+import express from 'express';
+import favicon from 'serve-favicon'
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+import errorHandler from 'errorhandler';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 
 module.exports = function() {
-  var app = express();
+  const app = express();
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
   // all environments
   app.set('port', process.env.PORT || 3000);
