@@ -9,4 +9,4 @@ const asyncHandler = (callback) => {
   }
 }
 
-module.exports = asyncHandler;
+export default asyncHandler;

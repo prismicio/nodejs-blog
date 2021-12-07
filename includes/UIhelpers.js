@@ -50,7 +50,7 @@ function getFirstParagraph(post) {
   return firstParagraph;
 }
 
-module.exports = {
+export default {
   getDate,
-  getFirstParagraph,
-};
+  getFirstParagraph
+}
