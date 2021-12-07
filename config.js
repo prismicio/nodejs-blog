@@ -12,14 +12,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 
-module.exports = function() {
+const app = () => {
   const app = express();
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
   // all environments
   app.set('port', process.env.PORT || 3000);
   app.set('views', path.join(__dirname, 'views'));
-  app.set('view engine', 'pug');
+  app.set('view engine', 'ejs');
   app.use(favicon("public/images/punch.png"));
   app.use(logger('dev'));
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,4 +29,6 @@ module.exports = function() {
   app.use(errorHandler());
 
   return app;
-}();
+}
+
+export default app;
