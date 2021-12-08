@@ -4,7 +4,7 @@
 import fetch from 'node-fetch';
 import * as prismic from '@prismicio/client';
 
-const repoName = `sample-prismic-blog`; // Fill in your repository name.
+const repoName = `newnodeblog`; // Fill in your repository name.
 const accessToken = ``; // If your repo is private, add an access token.
 const endpoint = prismic.getEndpoint(repoName); // Format your endpoint.
 
@@ -24,7 +24,7 @@ const routes = [
 ]
 
 const createClient = (req) => {
-  const client = prismic.createClient(endpoint, { fetch, accessToken, req, routes })
+  const client = prismic.createClient(endpoint, { fetch, accessToken,routes, req})
   return client
 }
 
