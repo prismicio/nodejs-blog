@@ -1,15 +1,14 @@
 <% getSlices = ((SliceZone)=> {
     return SliceZone.map(slice => {
       if (slice.slice_type === "text") { %>
-    <%- include('./slices/Text.ejs', {slice: slice});%> <h1>end of text slice</h1>
+    <%- include('./slices/Text.ejs', {slice: slice});%>
       <% }  
-      else if (slice.slice_type === "Quote") {%><h1>start of q slice</h1>
+      else if (slice.slice_type === "Quote") {%><
         <%- include('./slices/quote.ejs', {slice: slice}); %>
       <%  }
       else if (slice.slice_type === "image_with_caption") {%>
-        <%- include('./slices/ImageSlice.ejs', {slice: slice}); %><h1>end of image slice</h1>
+        <%- include('./slices/ImageWithCaption.ejs', {slice: slice}); %>
       <%  }
-
     })
   }) %>
   
