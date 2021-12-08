@@ -8,5 +8,5 @@ const asyncHandler = (callback) => {
     }
   }
 }
-
 export default asyncHandler;
+

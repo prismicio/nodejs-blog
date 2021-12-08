@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -11,8 +10,7 @@ import errorHandler from 'errorhandler';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-
-const app = () => {
+export const app = () => {
   const app = express();
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

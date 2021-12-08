@@ -6,15 +6,12 @@
   </head>
   <body>
     <div class="home">
-      <div
-        class="blog-avatar"
-        style="background-image: url(<%=bloghome.data.image.url%>)"
-      ></div>
+      <div class="blog-avatar" style="background-image: url(<%=bloghome.data.image.url%>)"></div>
       <h1 class="blog-title">
-        <%=ctx.prismicH.asText(bloghome.data.headline)%>
+        <%- ctx.prismicH.asText(bloghome.data.headline)%>
       </h1>
       <p class="blog-description">
-        <%=ctx.prismicH.asText(bloghome.data.description)%>
+        <%- ctx.prismicH.asText(bloghome.data.description)%>
       </p>
     </div>
     <div class="blog-main">
@@ -25,21 +22,24 @@
           </a>
           <p class="blog-post-meta">
             <% const date = UIhelpers.getDate(post)%>
-            <span class="created-at"> <%-date%> </span>
+            <span> <%-date%> </span>
           </p>
 
-          <% 
-          const firstParagraph = UIhelpers.getFirstParagraph(post); 
-          const textLimit = 300; 
-          const limitedText = firstParagraph.substr(0, textLimit); 
-          if(firstParagraph.length > textLimit){%>
-            <%=limitedText.substr(0, limitedText.lastIndexOf(' '))%> 
-          <%} else {%>
-            <%-firstParagraph%> 
-          <%}%>
+          <% const firstParagraph = UIhelpers.getFirstParagraph(post); 
+            const textLimit = 300; 
+            const limitedText = firstParagraph.substr(0, textLimit); 
+            if(firstParagraph.length > textLimit) {
+          %>
+          <%=limitedText.substr(0, limitedText.lastIndexOf(' '))%> 
+            <%}else {%>
+              <%-firstParagraph%> 
+            <%}%>
         </div>
       <%})%>
     </div>
-    <footer><%- include('./partials/footer'); %></footer>
+    <footer>
+      <%- include('./partials/footer'); %>
+    </footer>
   </body>
 </html>
+

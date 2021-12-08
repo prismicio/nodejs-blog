@@ -1,7 +1,9 @@
-<% const imageUrl = slice.primary.image.url; const caption =
-ctx.prismicH.asHTML(slice.primary.caption) %>
+<% 
+  const imageUrl = slice.primary.image.url; 
+  const caption = ctx.prismicH.asHTML(slice.primary.caption) 
+%>
 <div class="post-part single container">
-  <% if(slice.slice_label=='image-full-width'){%>
+  <% if (slice.slice_label=='image-full-width'){%>
   <div class="blog-header single" style="background-image: url(<%=imageUrl%>)">
     <div class="wrapper">
       <% if(caption !== ""){%>
@@ -9,7 +11,7 @@ ctx.prismicH.asHTML(slice.primary.caption) %>
       <%}%>
     </div>
   </div>
-  <%} else if(slice.slice_label=='emphasized'){%>
+  <%} else if (slice.slice_label=='emphasized'){%>
   <div class="post-part single container">
     <p class="block-img emphasized">
       <img src="<%=imageUrl%>" />
@@ -21,6 +23,6 @@ ctx.prismicH.asHTML(slice.primary.caption) %>
     <%}%>
   </div>
   <%} else{%>
-    <p>No slice</p>
+    <p>No Slice found</p>
   <%} %>
 </div>
