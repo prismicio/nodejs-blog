@@ -1,38 +1,45 @@
-<html lang="en">
-<% const title  = ctx.prismicH.asText(bloghome.data.headline)%>
-
-<% const body =()=> { %>
-  <page>
+<!DOCTYPE html>
+<html>
+  <head>
+    <% const title = ctx.prismicH.asText(bloghome.data.headline)%> 
+    <%- include('./partials/head', {title}); %>
+  </head>
+  <body>
     <div class="home">
-      <div class="blog-avatar" style="background-image: url(<%=bloghome.data.image.url%>)">
-      </div>
-      <h1 class="blog-title"><%=ctx.prismicH.asText(bloghome.data.headline)%></h1>
-      <p class="blog-description"><%=ctx.prismicH.asText(bloghome.data.description)%></p>
+      <div
+        class="blog-avatar"
+        style="background-image: url(<%=bloghome.data.image.url%>)"
+      ></div>
+      <h1 class="blog-title">
+        <%=ctx.prismicH.asText(bloghome.data.headline)%>
+      </h1>
+      <p class="blog-description">
+        <%=ctx.prismicH.asText(bloghome.data.description)%>
+      </p>
     </div>
     <div class="blog-main">
       <% posts.forEach((post) => { %>
-        <div class="blog-post" data-wio-id="<%=post.id%>">
-          <a href="/blog/<%=post.uid%>"><h2><%- ctx.prismicH.asText(post.data.title) %></h2></a>
+        <div class="blog-post" data-wio-id="<%-post.id%>">
+          <a href="/blog/<%-post.uid%>">
+            <h2><%- ctx.prismicH.asText(post.data.title) %></h2>
+          </a>
           <p class="blog-post-meta">
             <% const date = UIhelpers.getDate(post)%>
-            <span class="created-at">
-              <%-date%>
-            </span>
-            <%
-            const firstParagraph = UIhelpers.getFirstParagraph(post);
-            const textLimit = 300;
-            const limitedText = firstParagraph.substr(0, textLimit);
-            if(firstParagraph.length > textLimit){%>
-              <%=limitedText.substr(0, limitedText.lastIndexOf(' '))%>...
-            <%} else {%>
-              <%-firstParagraph%>
-            <%}%>
+            <span class="created-at"> <%-date%> </span>
           </p>
+
+          <% 
+          const firstParagraph = UIhelpers.getFirstParagraph(post); 
+          const textLimit = 300; 
+          const limitedText = firstParagraph.substr(0, textLimit); 
+          if(firstParagraph.length > textLimit){%>
+            <%=limitedText.substr(0, limitedText.lastIndexOf(' '))%> 
+          <%} else {%>
+            <%-firstParagraph%> 
+          <%}%>
         </div>
-    <%})%>
+      <%})%>
     </div>
-  </page>
-<% } %>
-
- <%- include('./layout', {title, body}) %>
-
+    <footer><%- include('./partials/footer'); %></footer>
+  </body>
+</html>

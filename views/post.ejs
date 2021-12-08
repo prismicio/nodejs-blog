@@ -1,16 +1,21 @@
-<% const title  =ctx.prismicH.asText(post.data.title)%>
-<% const body =()=> { %>
-<div class="main">
-    <div class="outer-container">
-      <div class="back">
-        <a href="./">back to list</a>
-        <h1> <%= ctx.prismicH.asText(post.data.title) %> </h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <%const title = ctx.prismicH.asText(post.data.title)%> 
+    <%-include('./partials/head', {title}); %>
+  </head>
+  <body>
+    <div class="main">
+      <div class="outer-container">
+        <div class="back">
+          <a href="./">back to list</a>
+          <h1><%= ctx.prismicH.asText(post.data.title) %></h1>
+        </div>
+        <div class="post-part single container">
+          <%- include("SliceZone", {SliceZone: post.data.body}); %>
+        </div>
       </div>
-      <div class="post-part single container">
-        <%- include("SliceZone", {SliceZone: post.data.body}); %>
-     </div>
-  </div>
-</div>
-<% } %>
-
-<%- include('./layout', {title, body}) %>
+    </div>
+    <footer><%- include('./partials/footer'); %></footer>
+  </body>
+</html>
