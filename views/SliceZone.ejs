@@ -1,15 +1,15 @@
-<% getSlices = ((SliceZone)=> {
-    return SliceZone.map(slice => {
-      if (slice.slice_type === "text") { %>
-    <%- include('./slices/Text.ejs', {slice: slice});%>
-      <% }  
-      else if (slice.slice_type === "Quote") {%><
-        <%- include('./slices/quote.ejs', {slice: slice}); %>
-      <%  }
-      else if (slice.slice_type === "image_with_caption") {%>
-        <%- include('./slices/ImageWithCaption.ejs', {slice: slice}); %>
-      <%  }
-    })
-  }) %>
-  
-  <%- getSlices(SliceZone)%>
+<% getSlices = ((SliceZone) => {
+  return SliceZone.map(slice => {
+    if (slice.slice_type === 'text') { %>
+      <%- include('./slices/Text.ejs', {slice: slice});%>
+    <% }  
+    else if (slice.slice_type === 'quote') { %>
+      <%- include('./slices/Quote.ejs', {slice: slice}); %>
+    <% }
+    else if (slice.slice_type === 'image_with_caption') { %>
+      <%- include('./slices/ImageWithCaption.ejs', {slice: slice}); %>
+    <% }
+  })
+}) %>
+
+<%- getSlices(SliceZone)%>
