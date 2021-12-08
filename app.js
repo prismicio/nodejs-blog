@@ -19,6 +19,15 @@ route.listen(PORT, () => {
   process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
 });
 
+// Middleware to enables Previews
+const prismicAutoPreviewsMiddleware = (req, _res, next) => {
+  const client = createClient(req);
+  client.enableAutoPreviewsFromReq(req);
+  next();
+};
+
+route.use(prismicAutoPreviewsMiddleware);
+
 // Middleware to connect to inject prismic context
 route.use((req, res, next) => {
   res.locals.ctx = {
@@ -29,15 +38,31 @@ route.use((req, res, next) => {
   next();
 });
 
+
 /*
  * -------------- Routes --------------
  */
 
 
 /**
+* Route for Previews
+*/
+route.get('/preview', asyncHandler(async(req, res, next) => {
+  const client = createClient(req);
+  const redirectUrl = await client.resolvePreviewURL({
+  })
+  console.log("redirecturl is", redirectUrl)
+  res.redirect(302, redirectUrl);
+  next();
+}));
+
+
+
+
+/**
 * Route for blog homepage
 */
-route.get(['/', '/blog'], asyncHandler(async(req, res,next) => {
+route.get(['/','/blog'], asyncHandler(async(req, res, next) => {
   const client = createClient(req)
   const bloghome = await client.getSingle("blog_home")
   // If a document is returned...
@@ -49,7 +74,6 @@ route.get(['/', '/blog'], asyncHandler(async(req, res,next) => {
         direction: 'desc'
       }
     });
-    console.log(response)
     if (response) { 
     // Render the blog homepage
     res.render('bloghome', {
@@ -61,14 +85,14 @@ route.get(['/', '/blog'], asyncHandler(async(req, res,next) => {
     // If a bloghome document is not returned, display the 404 page
     res.status(404).render("./error_handlers/404");
   }
+  next();
 }));
 
 
 /**
 * Route for blog post
 */
-route.get('/blog/:uid', asyncHandler(async(req, res) => {
-
+route.get('/blog/:uid', asyncHandler(async(req, res, next) => {
   // Define the uid from the url
   const uid = req.params.uid;
   const client = createClient(req)
@@ -83,4 +107,10 @@ route.get('/blog/:uid', asyncHandler(async(req, res) => {
     } else {
       res.status(404).render("./error_handlers/404");
     }
+    next();
   }));
+
+
+route.get('*', asyncHandler(async(req, res, next) => {
+  res.status(404).render("./error_handlers/404");
+}));
