@@ -56,11 +56,11 @@ route.get(['/','/blog'], asyncHandler(async(req, res, next) => {
       }
     });
     if (response) { 
-    res.render('bloghome', {
-      bloghome,
-      posts : response.results
-    });
-  } 
+      res.render('bloghome', {
+        bloghome,
+        posts : response.results
+      });
+    } 
   } else {
     res.status(404).render('./error_handlers/404');
   }
