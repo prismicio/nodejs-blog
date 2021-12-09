@@ -3,6 +3,7 @@ const asyncHandler = (callback) => {
     try {
       return await callback(req, res, next);
     } catch(err) {
+      console.error(err)
       res.status(404).render('./error_handlers/404');
     }
   }
