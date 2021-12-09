@@ -1,53 +1,19 @@
-## Sample Blog with API-based CMS
+# Prismic & Node.js Example Blog
 
-Node.js blog is a blog template with content managed in prismic.io (an API-based CMS).
+[Node.js](https://nodejs.org/en/) example blog project with content managed in [Prismic](https://prismic.io/)
 
-#### Getting started
+## Check out the dedicated article to get this project up and running
+[Prismic project guide](https://user-guides.prismic.io/en/articles/868734-sample-blog-with-api-based-cms-in-node-js)
 
-Read [this guide](https://intercom.help/prismicio/examples/nodejs-samples/sample-blog-with-api-based-cms-in-nodejs) for instructions to create your repository and use the sample blog.
+## Learn more about using Prismic with Node.js
 
-#### Deploy your Node.js blog
-
-An easy way to deploy your Node.js blog is to use [Heroku](http://www.heroku.com). Just follow these few simple steps once you have successfully [signed up](https://id.heroku.com/signup/www-header) and [installed the Heroku toolbelt](https://toolbelt.heroku.com/):
-
-Create a new Heroku application
-
-```
-$ heroku create
-```
-
-Initialize a new Git repository:
-
-```
-$ git init
-$ heroku git:remote -a your-heroku-app-name
-```
-
-Commit your code to the Git repository and deploy it to Heroku:
-
-```
-$ git add .
-$ git commit -am "make it better"
-$ git push heroku master
-```
-
-Ensure you have at least one node running:
-
-```
-$ heroku ps:scale web=1
-```
-
-You can now browse your application online:
-
-```
-$ heroku open
-```
+[Prismic + Node.js Documentation](https://prismic.io/docs/technologies/nodejs)
 
 ### Licence
 
 This software is licensed under the Apache 2 license, quoted below.
 
-Copyright 2017 Prismic.io (http://prismic.io).
+Copyright 2021 [Prismic.io](http://prismic.io).
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 
