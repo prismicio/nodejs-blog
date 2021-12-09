@@ -33,54 +33,35 @@ route.use((req, res, next) => {
   next();
 });
 
-/*
- * -------------- Routes --------------
- */
-
-//Route for Previews
+// Route for Previews
 route.get('/preview', asyncHandler(async(req, res, next) => {
-  const redirectUrl = await client.resolvePreviewURL({
-  })
+  const redirectUrl = await client.resolvePreviewURL({})
   res.redirect(302, redirectUrl);
-  next();
 }));
 
-//Route for blog homepage
+// Route for blog homepage
 route.get(['/','/blog'], asyncHandler(async(req, res, next) => {
   const bloghome = await client.getSingle('blog_home')
-  if (bloghome) {
-    const response = await client.getByType('post', {
-      orderings: {
-        field: 'my.post.date',
-        direction: 'desc'
-      }
-    });
-    if (response) { 
-      res.render('bloghome', {
-        bloghome,
-        posts : response.results
-      });
-    } 
-  } else {
-    res.status(404).render('./error_handlers/404');
-  }
-  next();
+  const response = await client.getByType('post', {
+    orderings: {
+      field: 'my.post.date',
+      direction: 'desc'
+    }
+  });
+  res.render('bloghome', {
+    bloghome,
+    posts : response.results
+  });
 }));
 
 // Route for blog post
 route.get('/blog/:uid', asyncHandler(async(req, res, next) => {
   const uid = req.params.uid;
-
   const post = await client.getByUID('post', uid)
-    if (post) {
-      res.render('post', { post });
-    } else {
-      res.status(404).render('./error_handlers/404');
-    }
-    next();
-  }));
+  res.render('post', { post });
+}));
 
 // 404 route for anything else
-route.get('*', asyncHandler(async(req, res, next) => {
+route.get('*', async(req, res, next) => {
   res.status(404).render('./error_handlers/404');
-}));
+});
