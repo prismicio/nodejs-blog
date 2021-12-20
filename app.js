@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 /**
  * Module dependencies.
  */
 import app from './config.js';
 import { client, repoName } from './prismic-configuration.js';
-import  * as prismicH from '@prismicio/helpers';
+import * as prismicH from '@prismicio/helpers';
 import UIhelpers from './includes/UIhelpers.js';
 import asyncHandler from './utils/async-handler.js';
 
@@ -26,7 +26,7 @@ route.use(prismicAutoPreviewsMiddleware);
 route.use((req, res, next) => {
   res.locals.ctx = {
     prismicH,
-    repoName
+    repoName,
   };
   // Add UI helpers to access them in templates
   res.locals.UIhelpers = UIhelpers;
@@ -34,34 +34,34 @@ route.use((req, res, next) => {
 });
 
 // Route for Previews
-route.get('/preview', asyncHandler(async(req, res, next) => {
-  const redirectUrl = await client.resolvePreviewURL({})
+route.get('/preview', asyncHandler(async (req, res, next) => {
+  const redirectUrl = await client.resolvePreviewURL({});
   res.redirect(302, redirectUrl);
 }));
 
 // Route for blog homepage
-route.get(['/','/blog'], asyncHandler(async(req, res, next) => {
-  const bloghome = await client.getSingle('blog_home')
+route.get(['/', '/blog'], asyncHandler(async (req, res, next) => {
+  const bloghome = await client.getSingle('blog_home');
   const response = await client.getByType('post', {
     orderings: {
       field: 'my.post.date',
-      direction: 'desc'
-    }
+      direction: 'desc',
+    },
   });
   res.render('bloghome', {
     bloghome,
-    posts : response.results
+    posts: response.results,
   });
 }));
 
 // Route for blog post
-route.get('/blog/:uid', asyncHandler(async(req, res, next) => {
+route.get('/blog/:uid', asyncHandler(async (req, res, next) => {
   const uid = req.params.uid;
-  const post = await client.getByUID('post', uid)
+  const post = await client.getByUID('post', uid);
   res.render('post', { post });
 }));
 
 // 404 route for anything else
-route.get('*', async(req, res, next) => {
+route.get('*', async (req, res, next) => {
   res.status(404).render('./error_handlers/404');
 });
