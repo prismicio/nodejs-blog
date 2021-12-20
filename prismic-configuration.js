@@ -1,15 +1,15 @@
-// node-fetch is used to make network requests to the Prismic Rest API. 
+// node-fetch is used to make network requests to the Prismic Rest API.
 // In Node.js Prismic projects, you must provide a fetch method to the
 // Prismic client.
 import fetch from 'node-fetch';
 import * as prismic from '@prismicio/client';
 
-export const repoName = `my-repo-name`; // Fill in your repository name.
+export const repoName = 'my-repo-name'; // Fill in your repository name.
 const endpoint = prismic.getEndpoint(repoName); // Format your endpoint.
 
 export const client = prismic.createClient(endpoint, {
   // If your repo is private, add an access token.
-  accessToken: ``,
+  accessToken: '',
   fetch,
 
   // This defines how you will structure URL paths in your project.
@@ -18,11 +18,11 @@ export const client = prismic.createClient(endpoint, {
   routes: [
     {
       type: 'blog_home',
-      path: '/'
+      path: '/',
     },
     {
       type: 'post',
-      path: '/blog/:uid'
+      path: '/blog/:uid',
     },
   ],
 });
