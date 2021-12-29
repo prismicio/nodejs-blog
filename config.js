@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 import express from 'express';
-import favicon from 'serve-favicon'
+import favicon from 'serve-favicon';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
@@ -27,6 +27,6 @@ export const app = () => {
   app.use(errorHandler());
 
   return app;
-}
+};
 
 export default app;
