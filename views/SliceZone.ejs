@@ -1,7 +1,7 @@
 <% getSlices = ((SliceZone) => {
   return SliceZone.map(slice => {
     if (slice.slice_type === 'text') { %>
-      <%- include('./slices/Text.ejs', {slice: slice});%>
+      <%- include('./slices/Text.ejs', {slice: slice}); %>
     <% }  
     else if (slice.slice_type === 'quote') { %>
       <%- include('./slices/Quote.ejs', {slice: slice}); %>
@@ -12,4 +12,4 @@
   })
 }) %>
 
-<%- getSlices(SliceZone)%>
+<%- getSlices(SliceZone) %>
