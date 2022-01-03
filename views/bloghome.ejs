@@ -32,7 +32,7 @@
           const limitedText = firstParagraph.substr(0,textLimit);
 
           if (firstParagraph.length > textLimit) { %> 
-          <%- limitedText.substr(0, limitedText.lastIndexOf(' ')) %> 
+            <%- limitedText.substr(0, limitedText.lastIndexOf(' ')) %> 
           <% } else { %> 
             <%- firstParagraph %> 
           <% } %>
