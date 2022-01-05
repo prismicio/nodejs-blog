@@ -26,3 +26,5 @@ export const client = prismic.createClient(endpoint, {
     },
   ],
 });
+
+
