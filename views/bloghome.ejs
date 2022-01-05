@@ -11,7 +11,7 @@
         style="background-image: url(<%-bloghome.data.image.url%>)"
       ></div>
       <h1 class="blog-title">
-        <%- ctx.prismicH.asText(bloghome.data.headline) %>
+        <%- title %>
       </h1>
       <p class="blog-description">
         <%- ctx.prismicH.asText(bloghome.data.description) %>
@@ -24,8 +24,7 @@
           <h2><%- ctx.prismicH.asText(post.data.title) %></h2>
         </a>
         <p class="blog-post-meta">
-          <% const date = UIhelpers.getDate(post) %>
-          <span><%- date %></span>
+          <span><%- UIhelpers.getDate(post) %></span>
         </p>
         <% const firstParagraph = UIhelpers.getFirstParagraph(post);
           const textLimit = 300;
