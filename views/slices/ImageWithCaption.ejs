@@ -14,11 +14,13 @@
   <%} else if (slice.slice_label === 'emphasized') { %>
   <div class="post-part single container">
     <p class="block-img emphasized">
-      <img src="<%= imageUrl %>" />
+      <img src="<%- imageUrl %>" />
     </p>
     <% if (caption) { %>
       <p>
-        <span class="image-label">(<%- caption %>)</span>
+        <span class="image-label">
+          (<%- caption %>)
+        </span>
       </p>
     <% } %>
   </div>
@@ -26,3 +28,4 @@
     <p>No Slice found</p>
   <% } %>
 </div>
+
