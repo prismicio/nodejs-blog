@@ -4,7 +4,7 @@
 import fetch from 'node-fetch';
 import * as prismic from '@prismicio/client';
 
-export const repoName = 'my-repo-name'; // Fill in your repository name.
+export const repoName = 'your-repo-name'; // Fill in your repository name.
 const endpoint = prismic.getEndpoint(repoName); // Format your endpoint.
 
 export const client = prismic.createClient(endpoint, {
