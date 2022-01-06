@@ -1,24 +1,28 @@
-module.exports = {
+// node-fetch is used to make network requests to the Prismic Rest API.
+// In Node.js Prismic projects, you must provide a fetch method to the
+// Prismic client.
+import fetch from 'node-fetch';
+import * as prismic from '@prismicio/client';
 
-  apiEndpoint: 'https://your-repo-name.prismic.io/api/v2',
+export const repoName = 'your-repo-name'; // Fill in your repository name.
+const endpoint = prismic.getEndpoint(repoName); // Format your endpoint.
 
-  // -- Access token if the Master is not open
-  // accessToken: 'xxxxxx',
+export const client = prismic.createClient(endpoint, {
+  // If your repo is private, add an access token.
+  accessToken: '',
+  fetch,
 
-  // OAuth
-  // clientId: 'xxxxxx',
-  // clientSecret: 'xxxxxx',
-
-  // -- Links resolution rules
-  // This function will be used to generate links to Prismic.io documents
-  // As your project grows, you should update this function according to your routes
-  linkResolver(doc) {
-    if (doc.type == 'blog_home') {
-      return '/blog';
-    }
-    if (doc.type == 'post') {
-      return '/blog/' + encodeURIComponent(doc.uid);
-    }
-    return '/';
-  }
-};
+  // This defines how you will structure URL paths in your project.
+  // Update the types to match the Custom Types in your project, and edit
+  // the paths to match the routing in your project.
+  routes: [
+    {
+      type: 'blog_home',
+      path: '/',
+    },
+    {
+      type: 'post',
+      path: '/blog/:uid',
+    },
+  ],
+});

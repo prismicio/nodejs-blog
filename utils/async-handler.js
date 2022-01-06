@@ -3,10 +3,9 @@ const asyncHandler = (callback) => {
     try {
       return await callback(req, res, next);
     } catch(err) {
-      console.error(err);
-      res.render("./error_handlers/error");
+      console.error(err)
+      res.status(404).render('./error_handlers/404');
     }
   }
 }
-
-module.exports = asyncHandler;
+export default asyncHandler;

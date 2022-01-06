@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% const title = ctx.prismicH.asText(post.data.title); %> 
+    <%- include('./partials/head', {title}); %>
+  </head>
+  <body>
+    <div class="main">
+      <div class="outer-container">
+        <div class="back">
+          <a href="./">back to list</a>
+        </div>
+        <h1><%- title %> %></h1>
+        <div class="post-part single container">
+          <%- include("SliceZone", {SliceZone: post.data.body}); %>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <%- include('./partials/footer'); %>
+    </footer>
+  </body>
+</html>

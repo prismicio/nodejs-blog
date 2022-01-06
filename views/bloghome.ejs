@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% const title = ctx.prismicH.asText(bloghome.data.headline); %> 
+    <%- include('./partials/head', {title}); %>
+  </head>
+  <body>
+    <div class="home">
+      <div
+        class="blog-avatar"
+        style="background-image: url(<%-bloghome.data.image.url%>)"
+      ></div>
+      <h1 class="blog-title">
+        <%- title %>
+      </h1>
+      <p class="blog-description">
+        <%- ctx.prismicH.asText(bloghome.data.description) %>
+      </p>
+    </div>
+    <div class="blog-main">
+      <% posts.forEach((post) => { %>
+      <div class="blog-post">
+        <a href="<%- ctx.prismicH.asLink(post) %>">
+          <h2><%- ctx.prismicH.asText(post.data.title) %></h2>
+        </a>
+        <p class="blog-post-meta">
+          <span><%- UIhelpers.getDate(post) %></span>
+        </p>
+        <% const firstParagraph = UIhelpers.getFirstParagraph(post);
+          const textLimit = 300;
+          const limitedText = firstParagraph.substr(0,textLimit);
+
+          if (firstParagraph.length > textLimit) { %> 
+            <%- limitedText.substr(0, limitedText.lastIndexOf(' ')) %> 
+          <% } else { %> 
+            <%- firstParagraph %> 
+          <% } %>
+      </div>
+      <% }); %>
+    </div>
+    <footer>
+      <%- include('./partials/footer'); %>
+    </footer>
+  </body>
+</html>

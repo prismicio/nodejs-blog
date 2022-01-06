@@ -1,124 +1,76 @@
-"use strict";
-
+'use strict';
 /**
  * Module dependencies.
  */
-const Prismic = require('@prismicio/client');
-const PrismicDOM = require('prismic-dom');
-const app = require('./config');
-const PrismicConfig = require('./prismic-configuration');
-const PORT = app.get('port');
-const UIhelpers = require('./includes/UIhelpers');
-const asyncHandler = require ("./utils/async-handler");
+import app from './config.js';
+import { client, repoName } from './prismic-configuration.js';
+import * as prismicH from '@prismicio/helpers';
+import UIhelpers from './includes/UIhelpers.js';
+import asyncHandler from './utils/async-handler.js';
 
-app.listen(PORT, () => {
+const route = app();
+const PORT = route.get('port');
+
+route.listen(PORT, () => {
   process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
 });
 
+// Middleware to enables Previews
+const prismicAutoPreviewsMiddleware = (req, _res, next) => {
+  client.enableAutoPreviewsFromReq(req);
+  next();
+};
+route.use(prismicAutoPreviewsMiddleware);
+
 // Middleware to connect to inject prismic context
-app.use((req, res, next) => {
+route.use((req, res, next) => {
   res.locals.ctx = {
-    endpoint: PrismicConfig.apiEndpoint,
-    linkResolver: PrismicConfig.linkResolver,
+    prismicH,
+    repoName,
   };
-  
   // Add UI helpers to access them in templates
   res.locals.UIhelpers = UIhelpers;
-  
-  // Add PrismicDOM in locals to access them in templates
-  res.locals.PrismicDOM = PrismicDOM;
-  
-  // Add the prismic.io API to the req
-  Prismic.getApi(PrismicConfig.apiEndpoint, {
-    accessToken: PrismicConfig.accessToken,
-    req,
-  }).then((api) => {
-    req.prismic = { api };
-    next();
-  }).catch((error) => {
-    next(error.message);
-  });
+  next();
 });
 
-/*
- * -------------- Routes --------------
- */
-
-/**
-* Preconfigured prismic preview
-*/
- // Prismic preview route
- app.get('/preview', asyncHandler(async (req, res, next) => {
-  const { token, documentId } = req.query;
-  if(token){
-    try{
-      const redirectUrl = (await req.prismic.api.getPreviewResolver(token, documentId).resolve(PrismicConfig.linkResolver, '/'));
-      res.redirect(302, redirectUrl);
-    }catch(e){
-      res.status(500).send(`Error 500 in preview`);
-    }
-  }else{
-    res.send(400, 'Missing token from querystring');
-  }
-  next();
-}))
-
-
-/**
-* Route for blog homepage
-*/
-app.get(['/', '/blog'], (req, res) =>
-
-  // Query the homepage
-  req.prismic.api.getSingle("blog_home").then((bloghome) => {
-    
-    // If a document is returned...
-    if (bloghome) {
-
-      var queryOptions = {
-        page: req.params.p || '1',
-        orderings: '[my.post.date desc]'
-      };
-
-      // Query the posts
-      req.prismic.api.query(
-        Prismic.Predicates.at("document.type", "post"),
-        queryOptions
-      ).then(function(response) {
-        
-        // Render the blog homepage
-        res.render('bloghome', {
-          bloghome,
-          posts : response.results
-        });
-      });
-
-    } else {
-      // If a bloghome document is not returned, display the 404 page
-      res.status(404).render("./error_handlers/404");
-    }
+// Route for Previews
+route.get(
+  '/preview',
+  asyncHandler(async (req, res, next) => {
+    const redirectUrl = await client.resolvePreviewURL({ defaultURL: '/' });
+    res.redirect(302, redirectUrl);
   })
 );
 
+// Route for blog homepage
+route.get(
+  ['/', '/blog'],
+  asyncHandler(async (req, res, next) => {
+    const bloghome = await client.getSingle('blog_home');
+    const response = await client.getByType('post', {
+      orderings: {
+        field: 'my.post.date',
+        direction: 'desc',
+      },
+    });
+    res.render('bloghome', {
+      bloghome,
+      posts: response.results,
+    });
+  })
+);
 
-/**
-* Route for blog posts
-*/
-app.get('/blog/:uid', (req, res) => {
+// Route for blog post
+route.get(
+  '/blog/:uid',
+  asyncHandler(async (req, res, next) => {
+    const uid = req.params.uid;
+    const post = await client.getByUID('post', uid);
+    res.render('post', { post });
+  })
+);
 
-  // Define the uid from the url
-  const uid = req.params.uid;
-
-  // Query the post by its uid
-  req.prismic.api.getByUID('post', uid).then(post => {
-
-    if (post) {
-      // If a document is returned, render the post
-      res.render('post', { post });
-      
-    // Else display the 404 page
-    } else {
-      res.status(404).render("./error_handlers/404");
-    }
-  });
+// 404 route for anything else
+route.get('*', async (req, res, next) => {
+  res.status(404).render('./error_handlers/404');
 });
