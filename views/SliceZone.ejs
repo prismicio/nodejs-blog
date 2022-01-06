@@ -1,15 +1,18 @@
 <% getSlices = ((SliceZone) => {
-  return SliceZone.map(slice => {
-    if (slice.slice_type === 'text') { %>
-      <%- include('./slices/Text.ejs', {slice: slice}); %>
-    <% }  
-    else if (slice.slice_type === 'quote') { %>
-      <%- include('./slices/Quote.ejs', {slice: slice}); %>
-    <% }
-    else if (slice.slice_type === 'image_with_caption') { %>
-      <%- include('./slices/ImageWithCaption.ejs', {slice: slice}); %>
-    <% }
-  })
+  return SliceZone.reduce((prevSlices, slice) => {
+    if (slice.slice_type === 'text') { 
+      return prevSlices + include('./slices/Text.ejs', { slice: slice })
+    }  
+    else if (slice.slice_type === 'quote') { 
+      return prevSlices + include('./slices/Quote.ejs', { slice: slice })
+    }
+    else if (slice.slice_type === 'image_with_caption') { 
+      return prevSlices + include('./slices/ImageWithCaption.ejs', { slice: slice })
+    }
+    else {
+      return '<h1>No Slices found</h1>'
+    } 
+  }, '') 
 }) %>
 
 <%- getSlices(SliceZone) %>
