@@ -4,7 +4,7 @@
 import fetch from 'node-fetch';
 import * as prismic from '@prismicio/client';
 
-export const repoName = 'your-repo-name'; // Fill in your repository name.
+export const repoName = 'react-blog-demo'; // Fill in your repository name.
 
 export const client = prismic.createClient(repoName, {
   // If your repo is private, add an access token.

@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 
 export const app = () => {
   const app = express();
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  // const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
   // all environments
   app.set('port', process.env.PORT || 3000);
